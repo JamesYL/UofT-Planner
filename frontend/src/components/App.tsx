@@ -10,9 +10,18 @@ const App = () => {
     allEvents: [
       {
         dayOfWeek: 3,
-        start: { hour: 11, minute: 30 },
+        start: { hour: 11, minute: 15 },
         end: { hour: 13, minute: 45 },
-        color: "#FFFFFF",
+        background: "red",
+        text: "CSC222",
+      },
+      {
+        dayOfWeek: 3,
+        start: { hour: 12, minute: 45 },
+        end: { hour: 15, minute: 45 },
+        background: "lightblue",
+        text: "CSC224",
+        onClick: () => console.log("224"),
       },
     ],
   };

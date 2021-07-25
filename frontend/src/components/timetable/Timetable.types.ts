@@ -11,8 +11,10 @@ export interface TimetableEvent {
   start: TimeOfDay;
   /** When the event ends */
   end: TimeOfDay;
-  /** Color of the event background. Has to be in HEX form like #b00b69  */
-  color: string;
+  /** Background CSS property string */
+  background: string;
+  /** Text that should show up */
+  text: string;
   /** What happens when you click on the event */
   onClick?: () => unknown;
 }
