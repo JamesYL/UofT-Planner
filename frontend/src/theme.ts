@@ -7,5 +7,6 @@ export const theme = (dark: boolean) =>
       background: {
         paper: dark ? "#424242" : "#fdfcfa",
       },
+      primary: { main: "#002a5c" },
     },
   });

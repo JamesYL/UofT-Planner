@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@material-ui/core";
+import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import React from "react";
 import { useDarkMode } from "../storage/settings";
 import { theme } from "../theme";
@@ -32,8 +32,9 @@ const App = () => {
   const darkMode = useDarkMode();
   return (
     <ThemeProvider theme={theme(darkMode.isDark)}>
+      <CssBaseline />
+      <Nav darkMode={darkMode} />
       <div style={{ height: 600, width: 800 }}>
-        <Nav darkMode={darkMode} />
         <Timetable {...(tmpTimetable as TimetableProp)} />
       </div>
     </ThemeProvider>
