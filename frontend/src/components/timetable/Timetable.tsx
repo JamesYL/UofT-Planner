@@ -48,7 +48,7 @@ const Timetable = (timetableProp: TimetableProp) => {
               }%`,
               zIndex: 1,
               borderRadius: 20,
-              opacity: "90%",
+              opacity: "70%",
             }}
           >
             <Typography
@@ -60,6 +60,7 @@ const Timetable = (timetableProp: TimetableProp) => {
               }}
               component="p"
               variant="h5"
+              className={classes.eventText}
             >
               {item.text}
             </Typography>

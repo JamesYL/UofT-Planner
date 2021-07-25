@@ -1,4 +1,4 @@
-import { Paper, ThemeProvider } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core";
 import React from "react";
 import { useDarkMode } from "../storage/settings";
 import { theme } from "../theme";
@@ -23,7 +23,7 @@ const App = () => {
         dayOfWeek: 3,
         start: { hour: 12, minute: 45 },
         end: { hour: 15, minute: 45 },
-        background: "lightblue",
+        background: "blue",
         text: "CSC224",
         onClick: () => console.log("224"),
       },
@@ -35,7 +35,6 @@ const App = () => {
       <div style={{ height: 600, width: 800 }}>
         <Nav darkMode={darkMode} />
         <Timetable {...(tmpTimetable as TimetableProp)} />
-        <Paper>test</Paper>
       </div>
     </ThemeProvider>
   );
