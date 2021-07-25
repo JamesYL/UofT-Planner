@@ -1,4 +1,8 @@
+import { Paper, ThemeProvider } from "@material-ui/core";
 import React from "react";
+import { useDarkMode } from "../storage/settings";
+import { theme } from "../theme";
+import Nav from "./nav/Nav";
 import Timetable from "./timetable/Timetable";
 import { TimetableProp } from "./timetable/Timetable.types";
 
@@ -6,7 +10,7 @@ const App = () => {
   const tmpTimetable = {
     dayStart: 8,
     dayEnd: 22,
-    title: "Fall",
+    title: "Winter",
     allEvents: [
       {
         dayOfWeek: 3,
@@ -25,10 +29,15 @@ const App = () => {
       },
     ],
   };
+  const darkMode = useDarkMode();
   return (
-    <div style={{ height: 600, width: 800 }}>
-      <Timetable {...(tmpTimetable as TimetableProp)} />
-    </div>
+    <ThemeProvider theme={theme(darkMode.isDark)}>
+      <div style={{ height: 600, width: 800 }}>
+        <Nav darkMode={darkMode} />
+        <Timetable {...(tmpTimetable as TimetableProp)} />
+        <Paper>test</Paper>
+      </div>
+    </ThemeProvider>
   );
 };
 

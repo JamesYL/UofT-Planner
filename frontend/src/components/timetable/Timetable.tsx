@@ -1,46 +1,6 @@
 import { TimetableEvent, TimetableProp } from "./Timetable.types";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      height: "100%",
-      overflow: "auto",
-    },
-    table: {
-      position: "sticky",
-      width: "100%",
-      borderSpacing: 0,
-    },
-    titleCell: {
-      textAlign: "left",
-      verticalAlign: "bottom",
-      padding: 0,
-      width: "10%",
-    },
-    dayOfWeekCell: {
-      textAlign: "left",
-      verticalAlign: "bottom",
-      padding: 0,
-      width: "18%",
-      color: "gray",
-      fontWeight: "normal",
-    },
-    timeCell: {
-      borderTop: "1px solid",
-      verticalAlign: "top",
-      textAlign: "left",
-      paddingBottom: 30,
-    },
-    dataCell: {
-      borderTop: "1px solid",
-      padding: 8,
-      margin: 0,
-      position: "relative",
-    },
-  })
-);
+import { useStyles } from "./Timetable.css";
 
 const Timetable = (timetableProp: TimetableProp) => {
   const classes = useStyles();
@@ -115,12 +75,12 @@ const Timetable = (timetableProp: TimetableProp) => {
       <table aria-label="timetable" className={classes.table}>
         <thead>
           <tr>
-            <th scope="col" className={classes.titleCell}>
-              {timetableProp.title}
-            </th>
-            {["Mon", "Tues", "Wed", "Thurs", "Fri"].map((item) => (
+            <th scope="col" className={classes.titleCell} />
+            {["Mon", "Tue", "Wed", "Thu", "Fri"].map((item) => (
               <th scope="col" key={item} className={classes.dayOfWeekCell}>
-                {item}
+                <Typography component="h3" variant="h4">
+                  {item}
+                </Typography>
               </th>
             ))}
           </tr>
@@ -131,7 +91,22 @@ const Timetable = (timetableProp: TimetableProp) => {
             return (
               <tr key={i}>
                 <th scope="row" className={classes.timeCell}>
-                  {currHour}:00
+                  <span className={classes.timeCellText}>
+                    <Typography
+                      className={classes.timeCellTime}
+                      component="p"
+                      variant="h6"
+                    >
+                      {currHour <= 12 ? currHour : `${currHour - 12}`}
+                    </Typography>{" "}
+                    <Typography
+                      className={classes.timeCellAMPM}
+                      component="p"
+                      variant="subtitle2"
+                    >
+                      {currHour <= 12 ? "AM" : "PM"}
+                    </Typography>
+                  </span>
                 </th>
                 {["Mon", "Tues", "Wed", "Thurs", "Fri"].map((item, i) => (
                   <td key={item} className={classes.dataCell}>
