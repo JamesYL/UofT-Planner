@@ -2,10 +2,11 @@ import path from "path";
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-
+import courses from "./controllers/courses";
 dotenv.config();
 
 const app = express();
+app.use("/api", courses());
 if (process.env.NODE_ENV !== "production") app.use(cors());
 const port = process.env.PORT || 8000;
 

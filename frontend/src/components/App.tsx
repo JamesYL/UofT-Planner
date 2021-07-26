@@ -1,5 +1,6 @@
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import React from "react";
+import { getCourse } from "../api/courses";
 import { useDarkMode } from "../storage/settings";
 import { theme } from "../theme";
 import Nav from "./nav/Nav";
@@ -30,6 +31,9 @@ const App = () => {
     ],
   };
   const darkMode = useDarkMode();
+  // getCourse("CSC258", "20219")
+  //   .then((res) => console.log(res))
+  //   .catch((err) => console.error(err));
   return (
     <ThemeProvider theme={theme(darkMode.isDark)}>
       <CssBaseline />
