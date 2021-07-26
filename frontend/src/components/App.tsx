@@ -1,6 +1,6 @@
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import React from "react";
-import { getCourse } from "../api/courses";
+import { getCourse } from "../services/courses";
 import { useDarkMode } from "../storage/settings";
 import { theme } from "../theme";
 import Nav from "./nav/Nav";

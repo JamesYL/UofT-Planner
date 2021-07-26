@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import courses from "./controllers/courses";
+import logger from "./helper/logger";
 dotenv.config();
 
 const app = express();
@@ -18,5 +19,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(port, () => {
-  console.log(`server running on port ${port}`);
+  logger.info(`server running on port ${port}`);
 });
