@@ -34,6 +34,7 @@ interface CourseRawData {
     session: string;
     meetings: { [meetingId: string]: MeetingRawData };
     deliveryInstructions: string | null;
+    webTimetableInstructions: string | null;
     breadthCategories: string;
     distributionCategories: string;
     courseDescription: string;
@@ -75,6 +76,7 @@ export interface Course {
   distributionCategories: string;
   courseDescription: string;
   deliveryInstructions?: string;
+  webTimetableInstructions?: string;
   prerequisite?: string;
   corequisite?: string;
   exclusion?: string;
@@ -107,6 +109,7 @@ export const getCourse = async (
       corequisite,
       exclusion,
       recommendedPreparation,
+      webTimetableInstructions,
     } = rawCourse;
     const meetings: Meeting[] = [];
     for (const meetingId in rawCourse.meetings) {
@@ -149,14 +152,19 @@ export const getCourse = async (
       meetings,
       breadthCategories,
       distributionCategories,
-      deliveryInstructions:
-        deliveryInstructions === null ? undefined : deliveryInstructions,
+      deliveryInstructions: !deliveryInstructions
+        ? undefined
+        : deliveryInstructions,
       courseDescription,
-      prerequisite: prerequisite === "" ? undefined : prerequisite,
-      corequisite: corequisite === "" ? undefined : corequisite,
-      exclusion: exclusion === "" ? undefined : exclusion,
-      recommendedPreparation:
-        recommendedPreparation === "" ? undefined : recommendedPreparation,
+      prerequisite: !prerequisite ? undefined : prerequisite,
+      corequisite: !corequisite ? undefined : corequisite,
+      exclusion: !exclusion ? undefined : exclusion,
+      recommendedPreparation: !recommendedPreparation
+        ? undefined
+        : recommendedPreparation,
+      webTimetableInstructions: !webTimetableInstructions
+        ? undefined
+        : webTimetableInstructions,
     });
   }
   return parsedCourses;

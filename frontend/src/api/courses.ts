@@ -31,6 +31,7 @@ export interface Course {
   distributionCategories: string;
   courseDescription: string;
   deliveryInstructions?: string;
+  webTimetableInstructions?: string;
   prerequisite?: string;
   corequisite?: string;
   exclusion?: string;
@@ -47,6 +48,10 @@ export const getCourse = async (
     if (item.deliveryInstructions)
       item.deliveryInstructions = getInnerTextWithoutHtml(
         item.deliveryInstructions
+      );
+    if (item.webTimetableInstructions)
+      item.webTimetableInstructions = getInnerTextWithoutHtml(
+        item.webTimetableInstructions
       );
     item.courseDescription = getInnerTextWithoutHtml(item.courseDescription);
   });

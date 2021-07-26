@@ -31,7 +31,7 @@ const App = () => {
     ],
   };
   const darkMode = useDarkMode();
-  getCourse("CSC258", "20219")
+  getCourse("FSL312", "20219")
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
   return (
