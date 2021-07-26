@@ -23,6 +23,8 @@ interface MeetingRawData {
   deliveryMode: "ONLSYNC" | "ONLASYNC" | "CLASS";
   /** Async only hours per week */
   contactHours?: string;
+  /** If this meeting still exists */
+  cancel: string;
 }
 interface CourseRawData {
   [courseId: string]: {
@@ -31,6 +33,14 @@ interface CourseRawData {
     section: "F" | "S" | "Y";
     session: string;
     meetings: { [meetingId: string]: MeetingRawData };
+    deliveryInstructions: string | null;
+    breadthCategories: string;
+    distributionCategories: string;
+    courseDescription: string;
+    prerequisite: string;
+    corequisite: string;
+    exclusion: string;
+    recommendedPreparation: string;
   };
 }
 export interface Instructor {
@@ -61,6 +71,14 @@ export interface Course {
   section: "F" | "S" | "Y";
   session: string;
   meetings: Meeting[];
+  breadthCategories: string;
+  distributionCategories: string;
+  courseDescription: string;
+  deliveryInstructions?: string;
+  prerequisite?: string;
+  corequisite?: string;
+  exclusion?: string;
+  recommendedPreparation?: string;
 }
 
 export const getCourse = async (
@@ -76,10 +94,24 @@ export const getCourse = async (
   const parsedCourses: Course[] = [];
   for (const courseId in rawCourses) {
     const rawCourse = rawCourses[courseId];
-    const { courseTitle, code, section, session } = rawCourse;
+    const {
+      courseTitle,
+      code,
+      section,
+      session,
+      breadthCategories,
+      distributionCategories,
+      deliveryInstructions,
+      courseDescription,
+      prerequisite,
+      corequisite,
+      exclusion,
+      recommendedPreparation,
+    } = rawCourse;
     const meetings: Meeting[] = [];
     for (const meetingId in rawCourse.meetings) {
       const meeting = rawCourse.meetings[meetingId];
+      if (meeting.cancel) continue;
       const { teachingMethod, sectionNumber, deliveryMode } = meeting;
       const schedule: Schedule[] = [];
       const instructors: Instructor[] = [];
@@ -115,6 +147,16 @@ export const getCourse = async (
       section,
       session,
       meetings,
+      breadthCategories,
+      distributionCategories,
+      deliveryInstructions:
+        deliveryInstructions === null ? undefined : deliveryInstructions,
+      courseDescription,
+      prerequisite: prerequisite === "" ? undefined : prerequisite,
+      corequisite: corequisite === "" ? undefined : corequisite,
+      exclusion: exclusion === "" ? undefined : exclusion,
+      recommendedPreparation:
+        recommendedPreparation === "" ? undefined : recommendedPreparation,
     });
   }
   return parsedCourses;

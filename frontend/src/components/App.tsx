@@ -31,9 +31,9 @@ const App = () => {
     ],
   };
   const darkMode = useDarkMode();
-  // getCourse("CSC258", "20219")
-  //   .then((res) => console.log(res))
-  //   .catch((err) => console.error(err));
+  getCourse("CSC258", "20219")
+    .then((res) => console.log(res))
+    .catch((err) => console.error(err));
   return (
     <ThemeProvider theme={theme(darkMode.isDark)}>
       <CssBaseline />

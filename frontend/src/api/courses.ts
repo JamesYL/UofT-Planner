@@ -27,10 +27,34 @@ export interface Course {
   section: "F" | "S" | "Y";
   session: string;
   meetings: Meeting[];
+  breadthCategories: string;
+  distributionCategories: string;
+  courseDescription: string;
+  deliveryInstructions?: string;
+  prerequisite?: string;
+  corequisite?: string;
+  exclusion?: string;
+  recommendedPreparation?: string;
 }
 
 export const getCourse = async (
   code: string,
   session: string
-): Promise<Course[]> =>
-  (await axios.get(`/api/courses/${session}/${code}`)).data as Course[];
+): Promise<Course[]> => {
+  const res = (await axios.get(`/api/courses/${session}/${code}`))
+    .data as Course[];
+  res.forEach((item) => {
+    if (item.deliveryInstructions)
+      item.deliveryInstructions = getInnerTextWithoutHtml(
+        item.deliveryInstructions
+      );
+    item.courseDescription = getInnerTextWithoutHtml(item.courseDescription);
+  });
+
+  return res;
+};
+const getInnerTextWithoutHtml = (txt: string) => {
+  let tmp = document.createElement("DIV");
+  tmp.innerHTML = txt;
+  return tmp.textContent || tmp.innerText || "";
+};

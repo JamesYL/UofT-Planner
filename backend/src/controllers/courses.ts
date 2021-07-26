@@ -1,5 +1,5 @@
-import { getCourse } from "../../../frontend/src/api/courses";
 import express from "express";
+import { getCourse } from "../uoft-api/getCourses";
 
 const router = express.Router();
 
