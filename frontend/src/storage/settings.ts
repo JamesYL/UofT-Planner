@@ -3,7 +3,7 @@ import React from "react";
 const DARK_MODE_KEY = "IS_DARK_MODE";
 const setup = () => {
   const dark = localStorage.getItem(DARK_MODE_KEY);
-  if (dark === null) localStorage.setItem(DARK_MODE_KEY, JSON.stringify(false));
+  if (dark === null) localStorage.setItem(DARK_MODE_KEY, JSON.stringify(true));
 };
 export interface DarkMode {
   isDark: boolean;

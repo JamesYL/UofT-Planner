@@ -1,4 +1,6 @@
+import { Button, Grid, MuiThemeProvider, useTheme } from "@material-ui/core";
 import React from "react";
+import useStyles, { getTheme } from "./TimetablePage.css";
 import Timetable from "./timetable/Timetable";
 import { TimetableProp } from "./timetable/Timetable.types";
 const tmpTimetable1 = {
@@ -30,11 +32,45 @@ const tmpTimetable2 = {
   allEvents: [],
 };
 const TimetablePage = () => {
+  const classes = useStyles();
+  const [term, setTerm] = React.useState<"F" | "S" | "Y">("Y");
+  const outerTheme = useTheme();
   return (
-    <div>
-      <Timetable {...(tmpTimetable1 as TimetableProp)} />
-      <Timetable {...(tmpTimetable2 as TimetableProp)} />
-    </div>
+    <MuiThemeProvider theme={getTheme(outerTheme)}>
+      <div>
+        <div className={classes.optionsBar}>
+          <div className={classes.divider} />
+          {["F", "S", "Y"].map((item) => (
+            <Button
+              className={classes.termChooserButton}
+              variant="outlined"
+              onClick={() => setTerm(item as "F" | "S" | "Y")}
+              style={{ border: item !== term ? "none" : "" }}
+              disableRipple
+              key={item}
+            >
+              {item === "F"
+                ? "First Term"
+                : item === "S"
+                ? "Second Term"
+                : "Both Terms"}
+            </Button>
+          ))}
+        </div>
+        <Grid container>
+          {"FY".includes(term) && (
+            <Grid item xs={12} lg>
+              <Timetable {...(tmpTimetable1 as TimetableProp)} />
+            </Grid>
+          )}
+          {"SY".includes(term) && (
+            <Grid item xs={12} lg>
+              <Timetable {...(tmpTimetable2 as TimetableProp)} />
+            </Grid>
+          )}
+        </Grid>
+      </div>
+    </MuiThemeProvider>
   );
 };
 
