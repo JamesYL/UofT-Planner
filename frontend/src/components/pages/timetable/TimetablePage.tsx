@@ -1,8 +1,9 @@
 import { Button, Grid, MuiThemeProvider, useTheme } from "@material-ui/core";
 import React from "react";
 import useStyles, { getTheme } from "./TimetablePage.css";
-import Timetable from "./timetable/Timetable";
-import { TimetableProp } from "./timetable/Timetable.types";
+import Timetable from "./Timetable";
+import { TimetableProp } from "./Timetable.types";
+
 const tmpTimetable1 = {
   dayStart: 8,
   dayEnd: 22,

@@ -5,8 +5,10 @@ import { theme } from "../theme";
 import Nav from "./nav/Nav";
 import DrawerSelector from "./drawer/DrawerSelector";
 import useStyles from "./App.css";
-import TimetablePage from "./pages/TimetablePage";
+import TimetablePage from "./pages/timetable/TimetablePage";
 import { Switch, Route } from "react-router-dom";
+import ImportEvents from "./pages/import_events/ImportEvents";
+import ShowEvents from "./pages/show_events/ShowEvents";
 
 const App = () => {
   const darkMode = useDarkMode();
@@ -20,8 +22,12 @@ const App = () => {
           <Nav darkMode={darkMode} />
           <main className={classes.content}>
             <div className={classes.toolbar} />
-            <Route path="/edit">events</Route>
-            <Route path="/import">import courses</Route>
+            <Route path="/edit">
+              <ShowEvents />
+            </Route>
+            <Route path="/import">
+              <ImportEvents />
+            </Route>
             <Route path="/timetable">
               <TimetablePage />
             </Route>
