@@ -6,19 +6,16 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { DarkMode } from "../../storage/settings";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
-import { useStyles } from "./Nav.css";
+import useStyles from "./Nav.css";
+import { NavProps } from "./Nav.types";
 
-export interface NavProps {
-  darkMode: DarkMode;
-}
-
-const Nav = ({ darkMode }: NavProps) => {
-  const classes = useStyles();
+const Nav = (props: NavProps) => {
+  const { darkMode } = props;
+  const classes = useStyles(props);
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <Typography component="h1" variant="h6" className={classes.title}>
           UofT Planner

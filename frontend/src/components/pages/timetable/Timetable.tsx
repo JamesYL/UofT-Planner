@@ -1,6 +1,6 @@
 import { TimetableEvent, TimetableProp } from "./Timetable.types";
 import { Typography } from "@material-ui/core";
-import { useStyles } from "./Timetable.css";
+import useStyles from "./Timetable.css";
 
 const Timetable = (timetableProp: TimetableProp) => {
   const classes = useStyles();
@@ -76,7 +76,11 @@ const Timetable = (timetableProp: TimetableProp) => {
       <table aria-label="timetable" className={classes.table}>
         <thead>
           <tr>
-            <th scope="col" className={classes.titleCell} />
+            <th scope="col" className={classes.titleCell}>
+              <Typography component="h1" variant="body2">
+                <b>{timetableProp.title}</b>
+              </Typography>
+            </th>
             {["Mon", "Tue", "Wed", "Thu", "Fri"].map((item) => (
               <th scope="col" key={item} className={classes.dayOfWeekCell}>
                 <Typography component="h3" variant="h4">
