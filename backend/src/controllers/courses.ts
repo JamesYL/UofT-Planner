@@ -6,7 +6,7 @@ const router = express.Router();
 
 const getRouter = () => {
   router.get(`/courses/:session/:code`, async (req, res) => {
-    const code = req.params.code.substring(0, 6);
+    const code = req.params.code.trim();
     const session = req.params.session;
     logger.info("Course info requested");
     if (code.length < 6) {

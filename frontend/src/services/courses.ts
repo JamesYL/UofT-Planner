@@ -1,4 +1,5 @@
 import axios from "axios";
+import BadAxiosResponseError from "./helper";
 export interface Instructor {
   firstName: string;
   lastName: string;
@@ -42,21 +43,24 @@ export const getCourse = async (
   code: string,
   session: string
 ): Promise<Course[]> => {
-  const res = (await axios.get(`/api/courses/${session}/${code}`))
-    .data as Course[];
-  res.forEach((item) => {
-    if (item.deliveryInstructions)
-      item.deliveryInstructions = getInnerTextWithoutHtml(
-        item.deliveryInstructions
-      );
-    if (item.webTimetableInstructions)
-      item.webTimetableInstructions = getInnerTextWithoutHtml(
-        item.webTimetableInstructions
-      );
-    item.courseDescription = getInnerTextWithoutHtml(item.courseDescription);
-  });
-
-  return res;
+  try {
+    const res = (await axios.get<Course[]>(`/api/courses/${session}/${code}`))
+      .data;
+    res.forEach((item) => {
+      if (item.deliveryInstructions)
+        item.deliveryInstructions = getInnerTextWithoutHtml(
+          item.deliveryInstructions
+        );
+      if (item.webTimetableInstructions)
+        item.webTimetableInstructions = getInnerTextWithoutHtml(
+          item.webTimetableInstructions
+        );
+      item.courseDescription = getInnerTextWithoutHtml(item.courseDescription);
+    });
+    return res;
+  } catch (err) {
+    throw new BadAxiosResponseError(err.response);
+  }
 };
 const getInnerTextWithoutHtml = (txt: string) => {
   let tmp = document.createElement("DIV");
