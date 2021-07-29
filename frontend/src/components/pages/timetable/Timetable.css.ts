@@ -10,9 +10,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     "&::-webkit-scrollbar-track": {
       boxShadow: `inset 0 0 7px rgba(0, 0, 0, 0.5)`,
+      borderRadius: 50,
     },
     "&::-webkit-scrollbar-thumb": {
       backgroundColor: "darkgrey",
+      borderRadius: 50,
     },
     display: "inline-block",
   },

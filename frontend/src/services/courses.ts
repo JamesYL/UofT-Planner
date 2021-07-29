@@ -46,7 +46,7 @@ export const getCourse = async (
   try {
     const res = (await axios.get<Course[]>(`/api/courses/${session}/${code}`))
       .data;
-    res.forEach((item) => {
+    res.map((item) => {
       if (item.deliveryInstructions)
         item.deliveryInstructions = getInnerTextWithoutHtml(
           item.deliveryInstructions
@@ -56,11 +56,34 @@ export const getCourse = async (
           item.webTimetableInstructions
         );
       item.courseDescription = getInnerTextWithoutHtml(item.courseDescription);
+      return item;
     });
     return res;
   } catch (err) {
     throw new BadAxiosResponseError(err.response);
   }
+};
+export const getFormattedSchedule = (item: Schedule) => {
+  const meetingDayToActual = {
+    MO: "Monday",
+    TU: "Tuesday",
+    WE: "Wednesday",
+    TH: "Thursday",
+    FR: "Friday",
+  };
+  const [startHour, startMinute] = item.meetingStartTime.split(":");
+  const [endHour, endMinute] = item.meetingEndTime.split(":");
+  const startHourInt = parseInt(startHour);
+  const endHourInt = parseInt(endHour);
+  return {
+    meetingDay: meetingDayToActual[item.meetingDay],
+    meetingStartTime: `${
+      startHourInt <= 12 ? startHourInt : startHourInt - 12
+    }:${startMinute} ${startHourInt < 12 ? "A.M" : "P.M"}`,
+    meetingEndTime: `${
+      endHourInt <= 12 ? endHour : endHourInt - 12
+    }:${endMinute} ${endHourInt < 12 ? "A.M" : "P.M"}`,
+  };
 };
 const getInnerTextWithoutHtml = (txt: string) => {
   let tmp = document.createElement("DIV");

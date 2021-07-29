@@ -16,9 +16,18 @@ const getRouter = () => {
       logger.info(`Course info request failed: Bad code ${req.params.code}`);
     } else {
       try {
-        const courses = await getCourse(req.params.code, session);
-        res.json(courses);
-        logger.info(`Course info request success`);
+        const courses = await getCourse(code, session);
+        if (courses.length === 0) {
+          logger.info(
+            `Course info request failed: Code ${req.params.code} resulted in no courses found`
+          );
+          res
+            .status(400)
+            .json({ message: `No courses found with the code ${code}` });
+        } else   {
+          res.json(courses);
+          logger.info(`Course info request success`);
+        } 
       } catch (err) {
         logger.error(err);
         res.status(500).json({ message: "Internal server error" });
