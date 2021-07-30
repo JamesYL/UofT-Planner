@@ -9,13 +9,22 @@ import Notification from "../../util/Notification/Notification";
 import SearchBar from "../../util/SearchBar/SearchBar";
 import useStyles from "./ImportEvents.css";
 import config from "../../../config";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { getTheme } from "./ImportEvents.css";
 import {
+  Accordion,
+  AccordionSummary,
   Button,
   Card,
   CardActions,
   CardContent,
   Grid,
   Typography,
+  AccordionDetails,
+  IconButton,
+  MuiThemeProvider,
+  useTheme,
 } from "@material-ui/core";
 const ImportEvents = () => {
   const classes = useStyles();
@@ -41,78 +50,91 @@ const ImportEvents = () => {
         showErrbar[1](true);
       });
   };
+  const outerTheme = useTheme();
   return (
-    <>
+    <MuiThemeProvider theme={getTheme(outerTheme)}>
       <SearchBar
         placeholder="Search for a course like CSC108, ECO105, ..."
         handleSubmit={handleSubmit}
       />
-      {courses.map((course) => (
-        <>
-          <Typography component="h2" variant="h6">
-            {`${course.code}-${course.section} ${course.courseTitle}`}
-          </Typography>
-          <Button size="small" variant="contained">
-            Delete Course Selection
-          </Button>
 
-          <Grid container key={course.code + course.section}>
-            {course.meetings.map((item) => (
-              <Grid item lg={4} key={item.teachingMethod + item.sectionNumber}>
-                <Card variant="outlined">
-                  <CardContent>
-                    <Typography>{`${item.teachingMethod}${item.sectionNumber}`}</Typography>
-                    <Typography>
-                      {`Delivery Mode: ${
-                        item.deliveryMode === "ONLSYNC"
+      {courses.map((course) => (
+        <Accordion key={course.code + course.section}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="contents of course selection"
+          >
+            <Typography component="h2" variant="h5">
+              {`${course.code}-${course.section} ${course.courseTitle}`}
+            </Typography>
+            <IconButton onClick={(event) => event.stopPropagation()}>
+              <DeleteIcon />
+            </IconButton>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid container spacing={4}>
+              {course.meetings.map((item) => (
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  lg={4}
+                  xl={3}
+                  key={item.teachingMethod + item.sectionNumber}
+                >
+                  <Card elevation={0} className={classes.card}>
+                    <CardContent className={classes.cardContent}>
+                      <Typography
+                        component="h3"
+                        variant="h6"
+                      >{`${item.teachingMethod}${item.sectionNumber}`}</Typography>
+                      <Typography>
+                        {item.deliveryMode === "ONLSYNC"
                           ? "Online Synchronous"
                           : item.deliveryMode === "CLASS"
                           ? "In Person"
-                          : "Asynchronous"
-                      }`}
-                      {item.contactHours &&
-                        `${
-                          item.contactHours &&
-                          ` (${item.contactHours} hours per week)`
-                        }`}
-                    </Typography>
-                    <Typography>
-                      Taught By:{" "}
-                      {item.instructors.length !== 0
-                        ? `${item.instructors
+                          : "Asynchronous"}
+                        {item.contactHours &&
+                          `${
+                            item.contactHours &&
+                            ` (${item.contactHours} hours per week)`
+                          }`}
+                      </Typography>
+                      {item.instructors.length !== 0 && (
+                        <Typography>
+                          Taught by{" "}
+                          {item.instructors
                             .map(
                               (instructor) =>
                                 `${instructor.firstName}. ${instructor.lastName}`
                             )
-                            .join(", ")}`
-                        : "Unknown"}
-                    </Typography>
-                    {item.schedule.length !== 0 && (
-                      <Typography>Schedule:</Typography>
-                    )}
-                    {item.schedule.map((scheduleItem) => {
-                      const formatted = getFormattedSchedule(scheduleItem);
-                      return (
-                        <Typography
-                          key={`${formatted.meetingDay}${formatted.meetingStartTime}${formatted.meetingEndTime}`}
-                        >
-                          {`On ${formatted.meetingDay.substring(0, 3)}, from ${
-                            formatted.meetingStartTime
-                          } to ${formatted.meetingEndTime} `}
+                            .join(", ")}
                         </Typography>
-                      );
-                    })}
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" variant="contained">
-                      Delete Section
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </>
+                      )}
+                      {item.schedule.map((scheduleItem) => {
+                        const formatted = getFormattedSchedule(scheduleItem);
+                        return (
+                          <Typography
+                            key={`${formatted.meetingDay}${formatted.meetingStartTime}${formatted.meetingEndTime}`}
+                          >
+                            {`${formatted.meetingDay.substring(0, 3)}, ${
+                              formatted.meetingStartTime
+                            } to ${formatted.meetingEndTime} `}
+                          </Typography>
+                        );
+                      })}
+                    </CardContent>
+                    <CardActions className={classes.classAction}>
+                      <Button size="small" className={classes.deleteSection}>
+                        Delete Section
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </AccordionDetails>
+        </Accordion>
       ))}
 
       <Notification
@@ -122,7 +144,7 @@ const ImportEvents = () => {
         open={showErrbar}
         alertProps={{ variant: "standard" }}
       />
-    </>
+    </MuiThemeProvider>
   );
 };
 
