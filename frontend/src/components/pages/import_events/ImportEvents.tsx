@@ -10,7 +10,6 @@ import SearchBar from "../../util/SearchBar/SearchBar";
 import useStyles from "./ImportEvents.css";
 import config from "../../../config";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import DeleteIcon from "@material-ui/icons/Delete";
 import { getTheme } from "./ImportEvents.css";
 import {
   Accordion,
@@ -22,7 +21,6 @@ import {
   Grid,
   Typography,
   AccordionDetails,
-  IconButton,
   MuiThemeProvider,
   useTheme,
 } from "@material-ui/core";
@@ -50,30 +48,69 @@ const ImportEvents = () => {
         showErrbar[1](true);
       });
   };
+  const onDeleteMeetingSection =
+    (courseIndex: number, meetingIndex: number) => () => {
+      setCourses(
+        courses
+          .map((item, i) => {
+            if (i !== courseIndex) return item;
+            item.meetings = item.meetings.filter((_, j) => j !== meetingIndex);
+            return item;
+          })
+          .filter((item) => item.meetings.length !== 0)
+      );
+    };
+  const onDeleteCourseSelection =
+    (index: number) =>
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      setCourses(courses.filter((_, i) => index !== i));
+    };
   const outerTheme = useTheme();
   return (
     <MuiThemeProvider theme={getTheme(outerTheme)}>
-      <SearchBar
-        placeholder="Search for a course like CSC108, ECO105, ..."
-        handleSubmit={handleSubmit}
-      />
-
-      {courses.map((course) => (
-        <Accordion key={course.code + course.section}>
+      <div className={classes.header}>
+        <div className={classes.searchBar}>
+          <SearchBar
+            placeholder="Search for a course like CSC108, ECO105, ..."
+            handleSubmit={handleSubmit}
+          />
+        </div>
+        {courses.length > 0 && (
+          <Button variant="contained" className={classes.import}>
+            Import Courses
+          </Button>
+        )}
+      </div>
+      {courses.map((course, courseI) => (
+        <Accordion
+          key={course.code + course.section}
+          defaultExpanded={courses.length === 1}
+          classes={{ expanded: classes.expanded }}
+          className={classes.accordion}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="contents of course selection"
           >
-            <Typography component="h2" variant="h5">
+            <Typography
+              component="h2"
+              variant="h5"
+              className={classes.courseSelectionTitle}
+            >
               {`${course.code}-${course.section} ${course.courseTitle}`}
             </Typography>
-            <IconButton onClick={(event) => event.stopPropagation()}>
-              <DeleteIcon />
-            </IconButton>
+            <Button
+              className={classes.deleteCourseSectionButton}
+              variant="outlined"
+              onClick={onDeleteCourseSelection(courseI)}
+            >
+              Delete Course Section
+            </Button>
           </AccordionSummary>
           <AccordionDetails>
             <Grid container spacing={4}>
-              {course.meetings.map((item) => (
+              {course.meetings.map((item, meetingI) => (
                 <Grid
                   item
                   xs={12}
@@ -125,7 +162,11 @@ const ImportEvents = () => {
                       })}
                     </CardContent>
                     <CardActions className={classes.classAction}>
-                      <Button size="small" className={classes.deleteSection}>
+                      <Button
+                        size="small"
+                        className={classes.deleteSection}
+                        onClick={onDeleteMeetingSection(courseI, meetingI)}
+                      >
                         Delete Section
                       </Button>
                     </CardActions>

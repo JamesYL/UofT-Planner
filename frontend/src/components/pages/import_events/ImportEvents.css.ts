@@ -18,6 +18,45 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
     flexDirection: "column",
   },
+  courseSelectionTitle: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    flexGrow: 1,
+  },
+  deleteCourseSectionButton: {
+    marginRight: theme.spacing(3),
+    borderColor: theme.palette.error.main,
+    borderWidth: 2,
+  },
+  expanded: {
+    "&$expanded": {
+      margin: 10,
+    },
+  },
+  accordion: {
+    margin: 10,
+  },
+  searchBar: {
+    margin: 10,
+    maxWidth: 600,
+    width: "100%",
+  },
+  header: {
+    display: "flex",
+    margin: 10,
+    justifyContent: "flex-start",
+  },
+  import: {
+    background: theme.palette.info.main,
+    borderWidth: 2,
+    color: theme.palette.common.white,
+    margin: 10,
+    borderRadius: 10,
+    "&:hover": {
+      background: theme.palette.info.light,
+    },
+  },
 }));
 export const getTheme = (theme: Theme) =>
   createTheme({
