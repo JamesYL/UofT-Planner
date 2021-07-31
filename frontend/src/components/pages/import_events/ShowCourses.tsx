@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import useStyles from "./ShowCourses.css";
-import { Course, getFormattedSchedule } from "../../../services/courses";
+import { Course, getFormattedSchedule } from "../../../services/courses/courses";
 export interface ShowCoursesProps {
   setCourses: (courses: Course[]) => unknown;
   courses: Course[];

@@ -1,5 +1,5 @@
 import React from "react";
-import { Course, getCourse } from "../../../services/courses";
+import { Course, getCourse } from "../../../services/courses/courses";
 import BadAxiosResponseError from "../../../services/helper";
 import Notification from "./Notification";
 import SearchBar from "./SearchBar";

@@ -1,5 +1,5 @@
 import axios from "axios";
-import BadAxiosResponseError from "./helper";
+import BadAxiosResponseError from "../helper";
 export interface Instructor {
   firstName: string;
   lastName: string;
