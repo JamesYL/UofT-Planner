@@ -39,6 +39,10 @@ const ImportEvents = () => {
         showErrbar[1](true);
       });
   };
+  const [allCourses, setAllCourses] = useStorage({ key: "courses" });
+  const saveCourses = () => {
+    
+  };
 
   const outerTheme = useTheme();
   return (
@@ -51,7 +55,11 @@ const ImportEvents = () => {
           />
         </div>
         {courses.length > 0 && (
-          <Button variant="contained" className={classes.import}>
+          <Button
+            variant="contained"
+            className={classes.import}
+            onClick={saveCourses}
+          >
             Import Courses
           </Button>
         )}
