@@ -9,8 +9,7 @@ import {
   makeStyles,
   Theme,
 } from "@material-ui/core";
-import { IMPORTED_COURSES_PAGE_VISITED } from "../../../storage/helper";
-import { usePageVisited } from "../../../storage/settings";
+import useStorage from "../../../storage/useStorage";
 const useStyles = makeStyles((theme: Theme) => ({
   okButton: {
     borderColor: theme.palette.text.primary,
@@ -23,8 +22,8 @@ export interface InstructionsProps {
 const Instructions = (props: InstructionsProps) => {
   const classes = useStyles();
   const { open } = props;
-  const pageVisited = usePageVisited({
-    page: IMPORTED_COURSES_PAGE_VISITED,
+  const pageVisited = useStorage<boolean>({
+    key: "importCoursesPageVisited",
   });
   const handleClose = () => {
     open[1](false);

@@ -10,12 +10,11 @@ import ShowCourses from "./ShowCourses";
 import { getTheme } from "../timetable/TimetablePage.css";
 import Instructions from "./Instructions";
 import HelpIcon from "@material-ui/icons/HelpOutline";
-import { IMPORTED_COURSES_PAGE_VISITED } from "../../../storage/helper";
-import { usePageVisited } from "../../../storage/settings";
+import useStorage from "../../../storage/useStorage";
 const ImportEvents = () => {
   const classes = useStyles();
-  const pageVisited = usePageVisited({
-    page: IMPORTED_COURSES_PAGE_VISITED,
+  const pageVisited = useStorage<boolean>({
+    key: "importCoursesPageVisited",
   });
   const showErrbar = React.useState(false);
   const showDialog = React.useState(!pageVisited[0]);

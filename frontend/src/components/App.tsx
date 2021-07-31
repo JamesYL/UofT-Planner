@@ -1,6 +1,6 @@
 import React from "react";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
-import { useDarkMode } from "../storage/settings";
+import useStorage from "../storage/useStorage";
 import { theme } from "../theme";
 import Nav from "./nav/Nav";
 import DrawerSelector from "./drawer/DrawerSelector";
@@ -11,7 +11,7 @@ import ImportEvents from "./pages/import_events/ImportEvents";
 import ShowEvents from "./pages/show_events/ShowEvents";
 
 const App = () => {
-  const darkMode = useDarkMode();
+  const darkMode = useStorage<boolean>({ key: "isDarkMode" });
   const classes = useStyles();
   return (
     <ThemeProvider theme={theme(darkMode[0])}>
