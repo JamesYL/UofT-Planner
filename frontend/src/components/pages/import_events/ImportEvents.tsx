@@ -1,32 +1,26 @@
 import React from "react";
-import {
-  Course,
-  getCourse,
-  getFormattedSchedule,
-} from "../../../services/courses";
+import { Course, getCourse } from "../../../services/courses";
 import BadAxiosResponseError from "../../../services/helper";
-import Notification from "../../util/Notification/Notification";
-import SearchBar from "../../util/SearchBar/SearchBar";
+import Notification from "./Notification";
+import SearchBar from "./SearchBar";
 import useStyles from "./ImportEvents.css";
 import config from "../../../config";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { getTheme } from "./ImportEvents.css";
+import { Button, Fab, MuiThemeProvider, useTheme } from "@material-ui/core";
+import ShowCourses from "./ShowCourses";
+import { getTheme } from "../timetable/TimetablePage.css";
+import Instructions from "./Instructions";
+import HelpIcon from "@material-ui/icons/HelpOutline";
 import {
-  Accordion,
-  AccordionSummary,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Grid,
-  Typography,
-  AccordionDetails,
-  MuiThemeProvider,
-  useTheme,
-} from "@material-ui/core";
+  IMPORTED_COURSES_PAGE_VISITED,
+  usePageVisited,
+} from "../../../storage/settings";
 const ImportEvents = () => {
   const classes = useStyles();
+  const { visited, setVisited } = usePageVisited({
+    page: IMPORTED_COURSES_PAGE_VISITED,
+  });
   const showErrbar = React.useState(false);
+  const showDialog = React.useState(!visited);
   const [errMsg, setErrMsg] = React.useState<{
     title: React.ReactNode;
     message: React.ReactNode;
@@ -48,24 +42,7 @@ const ImportEvents = () => {
         showErrbar[1](true);
       });
   };
-  const onDeleteMeetingSection =
-    (courseIndex: number, meetingIndex: number) => () => {
-      setCourses(
-        courses
-          .map((item, i) => {
-            if (i !== courseIndex) return item;
-            item.meetings = item.meetings.filter((_, j) => j !== meetingIndex);
-            return item;
-          })
-          .filter((item) => item.meetings.length !== 0)
-      );
-    };
-  const onDeleteCourseSelection =
-    (index: number) =>
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      event.stopPropagation();
-      setCourses(courses.filter((_, i) => index !== i));
-    };
+
   const outerTheme = useTheme();
   return (
     <MuiThemeProvider theme={getTheme(outerTheme)}>
@@ -82,109 +59,30 @@ const ImportEvents = () => {
           </Button>
         )}
       </div>
-      {courses.map((course, courseI) => (
-        <Accordion
-          key={course.code + course.section}
-          defaultExpanded={courses.length === 1}
-          classes={{ expanded: classes.expanded }}
-          className={classes.accordion}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="contents of course selection"
-          >
-            <Typography
-              component="h2"
-              variant="h5"
-              className={classes.courseSelectionTitle}
-            >
-              {`${course.code}-${course.section} ${course.courseTitle}`}
-            </Typography>
-            <Button
-              className={classes.deleteCourseSectionButton}
-              variant="outlined"
-              onClick={onDeleteCourseSelection(courseI)}
-            >
-              Delete Course Section
-            </Button>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Grid container spacing={4}>
-              {course.meetings.map((item, meetingI) => (
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
-                  lg={4}
-                  xl={3}
-                  key={item.teachingMethod + item.sectionNumber}
-                >
-                  <Card elevation={0} className={classes.card}>
-                    <CardContent className={classes.cardContent}>
-                      <Typography
-                        component="h3"
-                        variant="h6"
-                      >{`${item.teachingMethod}${item.sectionNumber}`}</Typography>
-                      <Typography>
-                        {item.deliveryMode === "ONLSYNC"
-                          ? "Online Synchronous"
-                          : item.deliveryMode === "CLASS"
-                          ? "In Person"
-                          : "Asynchronous"}
-                        {item.contactHours &&
-                          `${
-                            item.contactHours &&
-                            ` (${item.contactHours} hours per week)`
-                          }`}
-                      </Typography>
-                      {item.instructors.length !== 0 && (
-                        <Typography>
-                          Taught by{" "}
-                          {item.instructors
-                            .map(
-                              (instructor) =>
-                                `${instructor.firstName}. ${instructor.lastName}`
-                            )
-                            .join(", ")}
-                        </Typography>
-                      )}
-                      {item.schedule.map((scheduleItem) => {
-                        const formatted = getFormattedSchedule(scheduleItem);
-                        return (
-                          <Typography
-                            key={`${formatted.meetingDay}${formatted.meetingStartTime}${formatted.meetingEndTime}`}
-                          >
-                            {`${formatted.meetingDay.substring(0, 3)}, ${
-                              formatted.meetingStartTime
-                            } to ${formatted.meetingEndTime} `}
-                          </Typography>
-                        );
-                      })}
-                    </CardContent>
-                    <CardActions className={classes.classAction}>
-                      <Button
-                        size="small"
-                        className={classes.deleteSection}
-                        onClick={onDeleteMeetingSection(courseI, meetingI)}
-                      >
-                        Delete Section
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </AccordionDetails>
-        </Accordion>
-      ))}
+      <ShowCourses setCourses={setCourses} courses={courses} />
 
+      <Instructions open={showDialog} />
       <Notification
         message={errMsg.message}
         title={errMsg.title}
         onClose={() => showErrbar[1](false)}
         open={showErrbar}
-        alertProps={{ variant: "standard" }}
       />
+      <Fab
+        aria-label="instructions"
+        size="medium"
+        color="primary"
+        className={classes.fab}
+        variant="extended"
+        onClick={() => {
+          showDialog[1](true);
+          setVisited();
+        }}
+      >
+        <HelpIcon className={classes.helpIcon} />
+        Show Instructions
+      </Fab>
+      <div className={classes.addMoreScroll} />
     </MuiThemeProvider>
   );
 };

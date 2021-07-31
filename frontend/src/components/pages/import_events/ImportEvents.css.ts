@@ -1,42 +1,6 @@
 import { makeStyles, Theme, createTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  cardContent: {
-    padding: 16,
-    paddingBottom: 0,
-  },
-  classAction: {
-    padding: 16,
-  },
-  deleteSection: {
-    padding: 0,
-  },
-  card: {
-    background: theme.palette.background.default,
-    height: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "column",
-  },
-  courseSelectionTitle: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    flexGrow: 1,
-  },
-  deleteCourseSectionButton: {
-    marginRight: theme.spacing(3),
-    borderColor: theme.palette.error.main,
-    borderWidth: 2,
-  },
-  expanded: {
-    "&$expanded": {
-      margin: 10,
-    },
-  },
-  accordion: {
-    margin: 10,
-  },
   searchBar: {
     margin: 10,
     maxWidth: 600,
@@ -48,14 +12,30 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "flex-start",
   },
   import: {
-    background: theme.palette.info.main,
+    background: theme.palette.success.main,
     borderWidth: 2,
     color: theme.palette.common.white,
     margin: 10,
     borderRadius: 10,
     "&:hover": {
-      background: theme.palette.info.light,
+      background: theme.palette.success.light,
     },
+  },
+  fab: {
+    position: "fixed",
+    right: theme.spacing(5),
+    bottom: theme.spacing(5),
+    background: theme.palette.info.main,
+    "&:hover": {
+      background: theme.palette.info.main,
+    },
+  },
+  helpIcon: {
+    marginRight: theme.spacing(1),
+  },
+  addMoreScroll: {
+    height: 100,
+    width: "100%",
   },
 }));
 export const getTheme = (theme: Theme) =>
