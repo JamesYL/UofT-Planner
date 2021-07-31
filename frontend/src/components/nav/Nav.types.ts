@@ -1,5 +1,5 @@
-import { DarkMode } from "../../storage/settings";
+import { UseStateReturnType } from "../../storage/settings";
 
 export interface NavProps {
-  darkMode: DarkMode;
+  darkMode: UseStateReturnType;
 }

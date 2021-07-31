@@ -22,11 +22,11 @@ const Nav = (props: NavProps) => {
         </Typography>
         <Tooltip title="Toggle dark mode" aria-label="Toggle dark mode">
           <IconButton
-            onClick={() => darkMode.setDark(!darkMode.isDark)}
+            onClick={() => darkMode[1](!darkMode[0])}
             disableRipple
             color="inherit"
           >
-            {darkMode.isDark ? <NightsStayIcon /> : <Brightness7Icon />}
+            {darkMode[0] ? <NightsStayIcon /> : <Brightness7Icon />}
           </IconButton>
         </Tooltip>
       </Toolbar>

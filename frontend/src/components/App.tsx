@@ -14,7 +14,7 @@ const App = () => {
   const darkMode = useDarkMode();
   const classes = useStyles();
   return (
-    <ThemeProvider theme={theme(darkMode.isDark)}>
+    <ThemeProvider theme={theme(darkMode[0])}>
       <CssBaseline />
       <Switch>
         <div className={classes.root}>

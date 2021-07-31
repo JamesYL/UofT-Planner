@@ -10,17 +10,15 @@ import ShowCourses from "./ShowCourses";
 import { getTheme } from "../timetable/TimetablePage.css";
 import Instructions from "./Instructions";
 import HelpIcon from "@material-ui/icons/HelpOutline";
-import {
-  IMPORTED_COURSES_PAGE_VISITED,
-  usePageVisited,
-} from "../../../storage/settings";
+import { IMPORTED_COURSES_PAGE_VISITED } from "../../../storage/helper";
+import { usePageVisited } from "../../../storage/settings";
 const ImportEvents = () => {
   const classes = useStyles();
-  const { visited, setVisited } = usePageVisited({
+  const pageVisited = usePageVisited({
     page: IMPORTED_COURSES_PAGE_VISITED,
   });
   const showErrbar = React.useState(false);
-  const showDialog = React.useState(!visited);
+  const showDialog = React.useState(!pageVisited[0]);
   const [errMsg, setErrMsg] = React.useState<{
     title: React.ReactNode;
     message: React.ReactNode;
@@ -76,7 +74,7 @@ const ImportEvents = () => {
         variant="extended"
         onClick={() => {
           showDialog[1](true);
-          setVisited();
+          pageVisited[1](true);
         }}
       >
         <HelpIcon className={classes.helpIcon} />
