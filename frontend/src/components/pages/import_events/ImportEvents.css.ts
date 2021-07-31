@@ -12,22 +12,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "flex-start",
   },
   import: {
-    background: theme.palette.success.main,
-    borderWidth: 2,
-    color: theme.palette.common.white,
-    margin: 10,
     borderRadius: 10,
-    "&:hover": {
-      background: theme.palette.success.light,
-    },
+    borderWidth: 2,
+    borderColor: theme.palette.text.primary,
+    margin: 10,
   },
   fab: {
     position: "fixed",
     right: theme.spacing(5),
     bottom: theme.spacing(5),
-    background: theme.palette.info.main,
+    background: "transparent",
+    borderColor: theme.palette.text.primary,
+    borderWidth: 2,
+    borderStyle: "solid",
+    color: theme.palette.text.primary,
     "&:hover": {
-      background: theme.palette.info.main,
+      background: theme.palette.background.paper,
     },
   },
   helpIcon: {

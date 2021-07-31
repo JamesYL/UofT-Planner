@@ -25,7 +25,5 @@ const simplifyMeetingsByActivity = (meetings: Meeting[]): MeetingByActivity => {
 const addToSimplifiedCourses = (
   newCourses: Course[],
   existing?: SimplifiedCourses
-): SimplifiedCourses => {
-  return { ...existing, ...simplifyCourses(newCourses) };
-};
+): SimplifiedCourses => ({ ...existing, ...simplifyCourses(newCourses) });
 export default addToSimplifiedCourses;

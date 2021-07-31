@@ -11,6 +11,8 @@ import { getTheme } from "../timetable/TimetablePage.css";
 import Instructions from "./Instructions";
 import HelpIcon from "@material-ui/icons/HelpOutline";
 import useStorage from "../../../storage/useStorage";
+import { SimplifiedCourses } from "../../../services/courses/timetable_generation/helper";
+import addToSimplifiedCourses from "../../../services/courses/timetable_generation/simplify_courses";
 const ImportEvents = () => {
   const classes = useStyles();
   const pageVisited = useStorage<boolean>({
@@ -25,6 +27,7 @@ const ImportEvents = () => {
   const [courses, setCourses] = React.useState<Course[]>([]);
   const handleSubmit = (search: string) => {
     const actualSearch = search.trim();
+    if (actualSearch.length === 0) return;
     getCourse(actualSearch, config.session)
       .then((courses) => {
         setCourses(courses);
@@ -39,11 +42,9 @@ const ImportEvents = () => {
         showErrbar[1](true);
       });
   };
-  const [allCourses, setAllCourses] = useStorage({ key: "courses" });
-  const saveCourses = () => {
-    
-  };
-
+  const [allCourses, setAllCourses] = useStorage<SimplifiedCourses>({
+    key: "courses",
+  });
   const outerTheme = useTheme();
   return (
     <MuiThemeProvider theme={getTheme(outerTheme)}>
@@ -54,13 +55,16 @@ const ImportEvents = () => {
             handleSubmit={handleSubmit}
           />
         </div>
+
         {courses.length > 0 && (
           <Button
-            variant="contained"
+            variant="outlined"
             className={classes.import}
-            onClick={saveCourses}
+            onClick={() => {
+              setAllCourses(addToSimplifiedCourses(courses, allCourses));
+            }}
           >
-            Import Courses
+            Save Courses
           </Button>
         )}
       </div>

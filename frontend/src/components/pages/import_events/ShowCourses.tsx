@@ -44,7 +44,6 @@ const ShowCourses = (props: ShowCoursesProps) => {
       {courses.map((course, courseI) => (
         <Accordion
           key={course.code + course.section}
-          defaultExpanded={courses.length === 1}
           classes={{ expanded: classes.expanded }}
           className={classes.accordion}
         >
