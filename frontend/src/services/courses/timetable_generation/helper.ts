@@ -11,3 +11,4 @@ export interface MeetingByActivity {
   TUT: Meeting[];
   PRA: Meeting[];
 }
+export type teachingMethod = "LEC" | "TUT" | "PRA";

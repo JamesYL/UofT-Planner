@@ -11,14 +11,17 @@ import {
   AccordionDetails,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import useStyles from "./ShowCourses.css";
-import { Course, getFormattedSchedule } from "../../../services/courses/courses";
-export interface ShowCoursesProps {
+import useStyles from "./DisplayCourses.css";
+import {
+  Course,
+  getFormattedSchedule,
+} from "../../../services/courses/courses";
+export interface DisplayCoursesProps {
   setCourses: (courses: Course[]) => unknown;
   courses: Course[];
 }
 
-const ShowCourses = (props: ShowCoursesProps) => {
+const DisplayCourses = (props: DisplayCoursesProps) => {
   const classes = useStyles();
   const { setCourses, courses } = props;
   const onDeleteMeetingSection =
@@ -138,4 +141,4 @@ const ShowCourses = (props: ShowCoursesProps) => {
     </>
   );
 };
-export default ShowCourses;
+export default DisplayCourses;

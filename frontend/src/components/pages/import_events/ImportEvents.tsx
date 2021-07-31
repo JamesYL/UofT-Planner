@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar";
 import useStyles from "./ImportEvents.css";
 import config from "../../../config";
 import { Button, Fab, MuiThemeProvider, useTheme } from "@material-ui/core";
-import ShowCourses from "./ShowCourses";
+import ShowCourses from "./DisplayCourses";
 import { getTheme } from "../timetable/TimetablePage.css";
 import Instructions from "./Instructions";
 import HelpIcon from "@material-ui/icons/HelpOutline";

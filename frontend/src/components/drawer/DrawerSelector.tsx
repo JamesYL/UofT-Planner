@@ -20,7 +20,7 @@ const DrawerSelector = () => {
         {[
           ["View Timetable", "/timetable"],
           ["Import Courses", "/import"],
-          ["View Events", "/edit"],
+          ["View Courses", "/edit"],
         ].map(([text, endpoint]) => (
           <ListItem
             button

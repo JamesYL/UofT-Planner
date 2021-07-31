@@ -8,7 +8,7 @@ import useStyles from "./App.css";
 import TimetablePage from "./pages/timetable/TimetablePage";
 import { Switch, Route } from "react-router-dom";
 import ImportEvents from "./pages/import_events/ImportEvents";
-import ShowEvents from "./pages/show_events/ShowEvents";
+import ShowCourses from "./pages/show_courses/ShowCourses";
 
 const App = () => {
   const darkMode = useStorage<boolean>({ key: "isDarkMode" });
@@ -23,7 +23,7 @@ const App = () => {
           <main className={classes.content}>
             <div className={classes.toolbar} />
             <Route path="/edit">
-              <ShowEvents />
+              <ShowCourses />
             </Route>
             <Route path="/import">
               <ImportEvents />
