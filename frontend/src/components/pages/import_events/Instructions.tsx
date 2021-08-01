@@ -50,7 +50,7 @@ const Instructions = (props: InstructionsProps) => {
         </DialogContentText>
         <DialogContentText>
           <b>
-            Only remove sections that you will not FOR SURE not want so we can
+            Only remove sections that you will FOR SURE not want so we can
             generate a variety of good timetable options.
           </b>
         </DialogContentText>
