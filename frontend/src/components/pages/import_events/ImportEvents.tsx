@@ -19,6 +19,7 @@ const ImportEvents = () => {
     key: "importCoursesPageVisited",
   });
   const showErrbar = React.useState(false);
+  const [severity, setSeverity] = React.useState<"error" | "success">("error");
   const showDialog = React.useState(!pageVisited[0]);
   const [errMsg, setErrMsg] = React.useState<{
     title: React.ReactNode;
@@ -35,6 +36,7 @@ const ImportEvents = () => {
       .catch((err) => {
         const actualErr: BadAxiosResponseError = err;
         const res = actualErr.getResponse();
+        setSeverity("error");
         setErrMsg({
           title: `Error Code ${res.status}: ${res.statusText}`,
           message: res.data.message,
@@ -62,7 +64,11 @@ const ImportEvents = () => {
             className={classes.import}
             onClick={() => {
               setAllCourses(addToSimplifiedCourses(courses, allCourses));
+              setSeverity("success");
+              setErrMsg({ title: "Successfully Saved Courses", message: "" });
+              showErrbar[1](true);
             }}
+            disableRipple
           >
             Save Courses
           </Button>
@@ -76,6 +82,7 @@ const ImportEvents = () => {
         title={errMsg.title}
         onClose={() => showErrbar[1](false)}
         open={showErrbar}
+        severity={severity}
       />
       <Fab
         aria-label="instructions"

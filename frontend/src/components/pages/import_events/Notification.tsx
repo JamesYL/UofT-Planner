@@ -6,9 +6,10 @@ export interface NotificationProps {
   onClose: () => unknown;
   message: React.ReactNode;
   title: React.ReactNode;
+  severity: "error" | "success";
 }
 const Notification = (props: NotificationProps) => {
-  const { open, onClose, message, title } = props;
+  const { open, onClose, message, title, severity } = props;
   const handleClose = () => {
     open[1](false);
     onClose();
@@ -18,7 +19,7 @@ const Notification = (props: NotificationProps) => {
       <Alert
         elevation={6}
         variant="standard"
-        severity="error"
+        severity={severity}
         onClose={handleClose}
       >
         {title && <AlertTitle>{title}</AlertTitle>}
