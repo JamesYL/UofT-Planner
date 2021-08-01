@@ -44,6 +44,25 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
+  noCoursesTitle: {
+    marginTop: theme.spacing(10),
+  },
+  helpIcon: {
+    marginRight: theme.spacing(1),
+  },
+  fab: {
+    position: "fixed",
+    right: theme.spacing(5),
+    bottom: theme.spacing(5),
+    background: "transparent",
+    borderColor: theme.palette.text.primary,
+    borderWidth: 2,
+    borderStyle: "solid",
+    color: theme.palette.text.primary,
+    "&:hover": {
+      background: theme.palette.background.paper,
+    },
+  },
 }));
 
 export default useStyles;

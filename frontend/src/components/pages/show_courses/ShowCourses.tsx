@@ -10,15 +10,23 @@ import {
   AccordionSummary,
   Typography,
   AccordionDetails,
+  Fab,
+  Button,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ShowTerm from "./ShowTerm";
+import Instructions from "./Instructions";
+import HelpIcon from "@material-ui/icons/HelpOutline";
 
 const ShowCourses = () => {
   const classes = useStyles();
   const [courses] = useStorage<SimplifiedCourses>({
     key: "courses",
   });
+  const pageVisited = useStorage<boolean>({
+    key: "viewCoursesPageVisited",
+  });
+  const showDialog = React.useState(!pageVisited[0]);
 
   return (
     <>
@@ -50,6 +58,32 @@ const ShowCourses = () => {
           ))}
         </Accordion>
       ))}
+      {Object.keys(courses).length === 0 && (
+        <Typography
+          component="h1"
+          variant="h3"
+          align="center"
+          className={classes.noCoursesTitle}
+        >
+          No Courses Found
+        </Typography>
+      )}
+      <Instructions open={showDialog} />
+      <Fab
+        aria-label="instructions"
+        size="medium"
+        color="primary"
+        className={classes.fab}
+        variant="extended"
+        onClick={() => {
+          showDialog[1](true);
+          pageVisited[1](true);
+        }}
+      >
+        <HelpIcon className={classes.helpIcon} />
+        Show Instructions
+      </Fab>
+      {/* <Button variant="outlined">Save Changes</Button> */}
     </>
   );
 };

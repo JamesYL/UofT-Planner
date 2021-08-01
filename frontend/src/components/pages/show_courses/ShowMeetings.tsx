@@ -8,6 +8,7 @@ import {
   Grid,
   Typography,
   AccordionDetails,
+  Button,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { teachingMethod } from "../../../services/courses/timetable_generation/helper";
@@ -92,6 +93,7 @@ const ShowMeetings = (props: ShowMeetingsProps) => {
                       </Typography>
                     );
                   })}
+                  {/* <Button>Disable</Button> */}
                 </CardContent>
               </Card>
             </Grid>

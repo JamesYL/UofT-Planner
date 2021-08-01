@@ -23,7 +23,7 @@ const Instructions = (props: InstructionsProps) => {
   const classes = useStyles();
   const { open } = props;
   const pageVisited = useStorage<boolean>({
-    key: "importCoursesPageVisited",
+    key: "viewCoursesPageVisited",
   });
   const handleClose = () => {
     open[1](false);
@@ -36,27 +36,14 @@ const Instructions = (props: InstructionsProps) => {
       fullWidth={true}
       maxWidth={"md"}
     >
-      <DialogTitle>Importing Potential Courses</DialogTitle>
+      <DialogTitle>Viewing Imported Courses</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          We need you to import courses so we can generate timetables for you.
+          Go to <b>Import Courses</b> to import the courses that you want.
         </DialogContentText>
         <DialogContentText>
-          Search for a course, remove sections, then import!
-        </DialogContentText>
-        <DialogContentText>
-          Remove sections that you don't have priority/access to, or remove the
-          second term of a course if you need it to be a prerequsite.
-        </DialogContentText>
-        <DialogContentText>
-          <b>
-            Only remove sections that you will FOR SURE not want so we can
-            generate a variety of good timetable options.
-          </b>
-        </DialogContentText>
-        <DialogContentText>
-          You can remove or disable sections after in <b>View Courses</b> as
-          well.
+          Disable certain sections if you don't want to include it when
+          generating timetables.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
