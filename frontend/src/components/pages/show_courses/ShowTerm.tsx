@@ -11,45 +11,29 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   SimplifiedCourses,
   SimplifiedTerm,
-  TeachingMethod,
 } from "../../../services/courses/timetable_generation/helper";
 import ShowMeetings from "./ShowMeetings";
 import clsx from "clsx";
+import { TeachingMethod } from "../../../services/courses/courses";
+import {
+  deleteTerm,
+  disableEnableTerm,
+} from "../../../services/courses/timetable_generation/simplify_courses";
 
 export interface ShowTermProps {
   term: SimplifiedTerm;
-  code: string;
   courses: SimplifiedCourses;
   setCourses: (val: SimplifiedCourses) => unknown;
 }
 const ShowTerm = (props: ShowTermProps) => {
-  const { term, code, courses, setCourses } = props;
+  const { term, courses, setCourses } = props;
   const classes = useStyles();
-  const setTerm = (newTerm: SimplifiedTerm) => {
-    const coursesCpy = { ...courses };
-    const courseCpy = { ...coursesCpy[code] };
-    courseCpy.terms = [
-      ...courseCpy.terms.filter((outer) => newTerm.section !== outer.section),
-      newTerm,
-    ];
-    coursesCpy[code] = courseCpy;
-    setCourses(coursesCpy);
-  };
+
   const handleDelete = () => {
-    const coursesCpy = { ...courses };
-    const courseCpy = { ...coursesCpy[code] };
-    courseCpy.terms = courseCpy.terms.filter(
-      (outer) => term.section !== outer.section
-    );
-    coursesCpy[code] = courseCpy;
-    if (coursesCpy[code].terms.length === 0) {
-      delete coursesCpy[code];
-    }
-    setCourses(coursesCpy);
+    setCourses(deleteTerm(courses, term));
   };
   const handleDisable = () => {
-    const termCpy = { ...term, disabled: !term.disabled };
-    setTerm(termCpy);
+    setCourses(disableEnableTerm(courses, term));
   };
   return (
     <Accordion
@@ -104,9 +88,8 @@ const ShowTerm = (props: ShowTermProps) => {
             <ShowMeetings
               meetings={term.meetingsByActivity[key as TeachingMethod]}
               teachingMethod={key as TeachingMethod}
-              setTerm={setTerm}
-              term={term}
-              deleteTerm={handleDelete}
+              courses={courses}
+              setCourses={setCourses}
             />
           </AccordionDetails>
         ))}

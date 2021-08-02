@@ -1,19 +1,6 @@
-import { Schedule } from "./../../../../../backend/src/services/getCourses";
-import { SimplifiedTerm, SimplifiedMeeting } from "./helper";
-export interface TimetableContent {
-  term: SimplifiedTerm;
-  meeting: SimplifiedMeeting;
-  schedule: Schedule[];
-  id: string;
-}
+import { FullTimetable, TimetableContent } from "./helper";
+import { Schedule } from "../courses";
 
-export interface FullTimetable {
-  first: (TimetableContent | null)[];
-  second: (TimetableContent | null)[];
-  async: {
-    [id: string]: TimetableContent;
-  };
-}
 export const createEmptyTimetable = (): FullTimetable => {
   // 24 hours per day * 2 (two half hours) * 5 (five days per week)
   // Courses go for 30 minute intervals
@@ -27,7 +14,7 @@ export const checkOverlap = (
   timetable: FullTimetable,
   content: TimetableContent
 ): boolean => {
-  for (const time of content.schedule) {
+  for (const time of content.meeting.schedule) {
     const [start, end] = timeToIndex(time);
     for (let i = start; i < end; i++) {
       if (
@@ -54,7 +41,7 @@ export const addToTimetable = (
       timetable.async[content.id] = content;
     }
   } else {
-    for (const time of content.schedule) {
+    for (const time of content.meeting.schedule) {
       const [startI, endI] = timeToIndex(time);
       for (let i = startI; i < endI; i++) {
         if (
@@ -90,7 +77,7 @@ export const removeFromTimetable = (
       delete timetable.async[content.id];
     }
   } else {
-    for (const time of content.schedule) {
+    for (const time of content.meeting.schedule) {
       const [startI, endI] = timeToIndex(time);
       for (let i = startI; i < endI; i++) {
         if (

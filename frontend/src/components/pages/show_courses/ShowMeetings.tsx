@@ -13,51 +13,32 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
-  SimplifiedTerm,
-  TeachingMethod,
+  SimplifiedCourses,
   SimplifiedMeeting,
 } from "../../../services/courses/timetable_generation/helper";
-import { getFormattedSchedule } from "../../../services/courses/courses";
+import {
+  getFormattedSchedule,
+  TeachingMethod,
+} from "../../../services/courses/courses";
+import {
+  deleteMeeting,
+  disableEnableMeeting,
+} from "../../../services/courses/timetable_generation/simplify_courses";
 
 export interface ShowMeetingsProps {
   meetings: SimplifiedMeeting[];
   teachingMethod: TeachingMethod;
-  setTerm: (val: SimplifiedTerm) => unknown;
-  term: SimplifiedTerm;
-  deleteTerm: () => unknown;
+  courses: SimplifiedCourses;
+  setCourses: (val: SimplifiedCourses) => unknown;
 }
 const ShowMeetings = (props: ShowMeetingsProps) => {
   const classes = useStyles();
-  const { meetings, teachingMethod, term, setTerm, deleteTerm } = props;
+  const { meetings, teachingMethod, courses, setCourses } = props;
   const handleDisable = (meeting: SimplifiedMeeting) => {
-    const termCpy = { ...term };
-    const meetingsByActivityCpy = { ...term.meetingsByActivity };
-    const meetingsCpy = [...meetingsByActivityCpy[teachingMethod]];
-    meetingsCpy.forEach((innerMeeting) => {
-      if (meeting.sectionNumber === innerMeeting.sectionNumber) {
-        innerMeeting.disabled = !innerMeeting.disabled;
-      }
-    });
-    meetingsByActivityCpy[teachingMethod] = meetingsCpy;
-    termCpy.meetingsByActivity = meetingsByActivityCpy;
-    setTerm(termCpy);
+    setCourses(disableEnableMeeting(courses, meeting));
   };
   const handleDelete = (meeting: SimplifiedMeeting) => {
-    const termCpy = { ...term };
-    const meetingsByActivityCpy = { ...term.meetingsByActivity };
-    const meetingsCpy = [...meetingsByActivityCpy[teachingMethod]];
-    meetingsByActivityCpy[teachingMethod] = meetingsCpy.filter(
-      (innerMeeting) => meeting.sectionNumber !== innerMeeting.sectionNumber
-    );
-    termCpy.meetingsByActivity = meetingsByActivityCpy;
-    setTerm(termCpy);
-    for (const key in termCpy.meetingsByActivity) {
-      if (termCpy.meetingsByActivity[key as TeachingMethod].length !== 0) {
-        return;
-      }
-    }
-    // No more data left in term
-    deleteTerm();
+    setCourses(deleteMeeting(courses, meeting));
   };
   return (
     <Accordion

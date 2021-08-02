@@ -74,7 +74,7 @@ const ImportEvents = () => {
           </Button>
         )}
       </div>
-      <ShowCourses setCourses={setCourses} courses={courses} />
+      <ShowCourses courses={courses} />
 
       <Instructions open={showDialog} />
       <Notification

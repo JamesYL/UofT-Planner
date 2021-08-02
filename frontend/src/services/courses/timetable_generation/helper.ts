@@ -1,3 +1,4 @@
+import { Section } from './../courses';
 import { Meeting, Course } from "../courses";
 export interface SimplifiedCourses {
   /** Code must be length 6, Something like CSC108, NOT CSC108H1 */
@@ -14,5 +15,20 @@ export interface MeetingByActivity {
 }
 export interface SimplifiedMeeting extends Meeting {
   disabled: boolean;
+  id: string;
+  courseCode: string;
+  section: Section;
 }
-export type TeachingMethod = "LEC" | "TUT" | "PRA";
+export interface TimetableContent {
+  term: SimplifiedTerm;
+  meeting: SimplifiedMeeting;
+  id: string;
+}
+
+export interface FullTimetable {
+  first: (TimetableContent | null)[];
+  second: (TimetableContent | null)[];
+  async: {
+    [id: string]: TimetableContent;
+  };
+}

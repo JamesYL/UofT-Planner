@@ -39,7 +39,7 @@ const Instructions = (props: InstructionsProps) => {
       <DialogTitle>Viewing Imported Courses</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Go to <b>Import Courses</b> to import the courses that you want.
+          Go to <b>Import Courses</b> to import (or reset) the courses you want.
         </DialogContentText>
         <DialogContentText>
           Disable certain sections if you don't want to include it when

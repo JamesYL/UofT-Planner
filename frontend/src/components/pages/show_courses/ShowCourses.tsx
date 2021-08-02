@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  SimplifiedCourses,
-  TeachingMethod,
-} from "../../../services/courses/timetable_generation/helper";
+import { SimplifiedCourses } from "../../../services/courses/timetable_generation/helper";
 import useStorage from "../../../storage/useStorage";
 import useStyles from "./ShowCourses.css";
 import {
@@ -17,6 +14,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ShowTerm from "./ShowTerm";
 import Instructions from "./Instructions";
 import HelpIcon from "@material-ui/icons/HelpOutline";
+import { TeachingMethod } from "../../../services/courses/courses";
+import {
+  deleteCourse,
+  disableEnableCourse,
+} from "../../../services/courses/timetable_generation/simplify_courses";
 
 const ShowCourses = () => {
   const classes = useStyles();
@@ -27,16 +29,11 @@ const ShowCourses = () => {
     key: "viewCoursesPageVisited",
   });
   const showDialog = React.useState(!pageVisited[0]);
-  const handleDelete = (key: string) => {
-    const cpy = { ...courses };
-    delete cpy[key];
-    setCourses(cpy);
+  const handleDelete = (code: string) => {
+    setCourses(deleteCourse(courses, code));
   };
-  const handleDisable = (key: string) => {
-    setCourses({
-      ...courses,
-      [key]: { ...courses[key], disabled: !courses[key].disabled },
-    });
+  const handleDisable = (code: string) => {
+    setCourses(disableEnableCourse(courses, code));
   };
 
   return (
@@ -95,7 +92,6 @@ const ShowCourses = () => {
                 >
                   <ShowTerm
                     term={term}
-                    code={key}
                     courses={courses}
                     setCourses={setCourses}
                   />

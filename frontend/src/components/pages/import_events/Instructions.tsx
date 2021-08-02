@@ -42,21 +42,7 @@ const Instructions = (props: InstructionsProps) => {
           We need you to import courses so we can generate timetables for you.
         </DialogContentText>
         <DialogContentText>
-          Search for a course, remove sections, then import!
-        </DialogContentText>
-        <DialogContentText>
-          Remove sections that you don't have priority/access to, or remove the
-          second term of a course if you need it to be a prerequsite.
-        </DialogContentText>
-        <DialogContentText>
-          <b>
-            Only remove sections that you will FOR SURE not want so we can
-            generate a variety of good timetable options.
-          </b>
-        </DialogContentText>
-        <DialogContentText>
-          You can remove or disable sections after in <b>View Courses</b> as
-          well.
+          Import all the courses that you need for your timetable!
         </DialogContentText>
       </DialogContent>
       <DialogActions>
