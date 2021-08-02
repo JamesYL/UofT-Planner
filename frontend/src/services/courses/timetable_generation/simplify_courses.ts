@@ -11,12 +11,12 @@ const simplifyCourses = (courses: Course[]): SimplifiedCourses => {
 };
 
 const simplifyTerm = (course: Course): SimplifiedTerm => {
-  return {
+  const ans: SimplifiedTerm = {
     ...course,
     meetingsByActivity: simplifyMeetingsByActivity(course.meetings),
     disabled: false,
-    meetings: [],
   };
+  return ans;
 };
 
 const simplifyMeetingsByActivity = (meetings: Meeting[]): MeetingByActivity => {
