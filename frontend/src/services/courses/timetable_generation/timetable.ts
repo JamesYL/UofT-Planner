@@ -1,15 +1,18 @@
 import { Schedule } from "./../../../../../backend/src/services/getCourses";
-import { SimplifiedTerm, MeetingByActivity, SimplifiedMeeting } from "./helper";
-type TimetableContent = {
+import { SimplifiedTerm, SimplifiedMeeting } from "./helper";
+export interface TimetableContent {
   term: SimplifiedTerm;
-  meetingsByActivity: MeetingByActivity;
-  meetings: SimplifiedMeeting[];
+  meeting: SimplifiedMeeting;
   schedule: Schedule[];
-} | null;
+  id: string;
+}
 
 export interface FullTimetable {
-  first: TimetableContent[];
-  second: TimetableContent[];
+  first: (TimetableContent | null)[];
+  second: (TimetableContent | null)[];
+  async: {
+    [id: string]: TimetableContent;
+  };
 }
 export const createEmptyTimetable = (): FullTimetable => {
   // 24 hours per day * 2 (two half hours) * 5 (five days per week)
@@ -17,13 +20,13 @@ export const createEmptyTimetable = (): FullTimetable => {
   return {
     first: Array(24 * 2 * 5).fill(null),
     second: Array(24 * 2 * 5).fill(null),
+    async: {},
   };
 };
 export const checkOverlap = (
   timetable: FullTimetable,
   content: TimetableContent
 ): boolean => {
-  if (content === null) return false;
   for (const time of content.schedule) {
     const [start, end] = timeToIndex(time);
     for (let i = start; i < end; i++) {
@@ -39,60 +42,75 @@ export const checkOverlap = (
 export const addToTimetable = (
   timetable: FullTimetable,
   content: TimetableContent
-): FullTimetable => {
-  if (content === null) return timetable;
-  const timetableCpy = {
-    first: [...timetable.first],
-    second: [...timetable.second],
-  };
-  for (const time of content.schedule) {
-    const [startI, endI] = timeToIndex(time);
-    for (let i = startI; i < endI; i++) {
-      if (
-        ("FY".includes(content.term.section) &&
-          timetableCpy.first[i] !== null) ||
-        ("SY".includes(content.term.section) && timetableCpy.second[i] !== null)
-      ) {
-        throw new TimetableError(
-          content,
-          timetable,
-          `Trying to add to timetable when slot is used`
-        );
+): void => {
+  if (content.meeting.deliveryMode === "ONLASYNC") {
+    if (content.id in timetable.async)
+      throw new TimetableError(
+        content,
+        timetable,
+        `Trying to add to timetable when slot is used`
+      );
+    else {
+      timetable.async[content.id] = content;
+    }
+  } else {
+    for (const time of content.schedule) {
+      const [startI, endI] = timeToIndex(time);
+      for (let i = startI; i < endI; i++) {
+        if (
+          ("FY".includes(content.term.section) &&
+            timetable.first[i] !== null) ||
+          ("SY".includes(content.term.section) && timetable.second[i] !== null)
+        ) {
+          throw new TimetableError(
+            content,
+            timetable,
+            `Trying to add to timetable when slot is used`
+          );
+        }
+        if ("FY".includes(content.term.section)) timetable.first[i] = content;
+        if ("SY".includes(content.term.section)) timetable.second[i] = content;
       }
-      if ("FY".includes(content.term.section)) timetableCpy.first[i] = content;
-      if ("SY".includes(content.term.section)) timetableCpy.second[i] = content;
     }
   }
-  return timetableCpy;
 };
 export const removeFromTimetable = (
   timetable: FullTimetable,
   content: TimetableContent
-): FullTimetable => {
-  if (content === null) return timetable;
-  const timetableCpy = {
-    first: [...timetable.first],
-    second: [...timetable.second],
-  };
-  for (const time of content.schedule) {
-    const [startI, endI] = timeToIndex(time);
-    for (let i = startI; i < endI; i++) {
-      if (
-        ("FY".includes(content.term.section) && timetable.first[i] === null) ||
-        ("SY".includes(content.term.section) && timetable.second[i] === null)
-      ) {
-        throw new TimetableError(
-          content,
-          timetable,
-          `Trying to remove from timetable when slot is empty`
-        );
+): void => {
+  if (content === null) return;
+  else if (content.meeting.deliveryMode === "ONLASYNC") {
+    if (!(content.id in timetable.async))
+      throw new TimetableError(
+        content,
+        timetable,
+        `Trying to remove from timetable when slot is empty`
+      );
+    else {
+      delete timetable.async[content.id];
+    }
+  } else {
+    for (const time of content.schedule) {
+      const [startI, endI] = timeToIndex(time);
+      for (let i = startI; i < endI; i++) {
+        if (
+          ("FY".includes(content.term.section) &&
+            timetable.first[i] === null) ||
+          ("SY".includes(content.term.section) && timetable.second[i] === null)
+        ) {
+          throw new TimetableError(
+            content,
+            timetable,
+            `Trying to remove from timetable when slot is empty`
+          );
+        }
+        if ("FY".includes(content.term.section)) timetable.first[i] = null;
+        if ("SY".includes(content.term.section)) timetable.second[i] = null;
       }
-      if ("FY".includes(content.term.section)) timetable.first[i] = null;
-      if ("SY".includes(content.term.section)) timetable.second[i] = null;
     }
   }
-  return timetableCpy;
 };
+
 const timeToIndex = (t: Schedule): [number, number] => {
   const dayOfWeekIndex = {
     MO: 0,
