@@ -15,4 +15,4 @@ export interface MeetingByActivity {
 export interface SimplifiedMeeting extends Meeting {
   disabled: boolean;
 }
-export type teachingMethod = "LEC" | "TUT" | "PRA";
+export type TeachingMethod = "LEC" | "TUT" | "PRA";

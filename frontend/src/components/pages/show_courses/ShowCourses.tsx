@@ -1,7 +1,7 @@
 import React from "react";
 import {
   SimplifiedCourses,
-  teachingMethod,
+  TeachingMethod,
 } from "../../../services/courses/timetable_generation/helper";
 import useStorage from "../../../storage/useStorage";
 import useStyles from "./ShowCourses.css";
@@ -83,7 +83,7 @@ const ShowCourses = () => {
                 Delete
               </Button>
             </AccordionSummary>
-            {[...courses[key as teachingMethod].terms]
+            {[...courses[key as TeachingMethod].terms]
               .sort((term1, term2) => {
                 if (term1.section < term2.section) return -1;
                 return 1;

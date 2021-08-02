@@ -11,7 +11,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   SimplifiedCourses,
   SimplifiedTerm,
-  teachingMethod,
+  TeachingMethod,
 } from "../../../services/courses/timetable_generation/helper";
 import ShowMeetings from "./ShowMeetings";
 import clsx from "clsx";
@@ -97,13 +97,13 @@ const ShowTerm = (props: ShowTermProps) => {
       {Object.keys(term.meetingsByActivity)
         .sort()
         .filter(
-          (key) => term.meetingsByActivity[key as teachingMethod].length !== 0
+          (key) => term.meetingsByActivity[key as TeachingMethod].length !== 0
         )
         .map((key) => (
           <AccordionDetails key={key} className={classes.accordingDetails}>
             <ShowMeetings
-              meetings={term.meetingsByActivity[key as teachingMethod]}
-              teachingMethod={key as teachingMethod}
+              meetings={term.meetingsByActivity[key as TeachingMethod]}
+              teachingMethod={key as TeachingMethod}
               setTerm={setTerm}
               term={term}
               deleteTerm={handleDelete}

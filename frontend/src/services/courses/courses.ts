@@ -63,6 +63,9 @@ export const getCourse = async (
     throw new BadAxiosResponseError(err.response);
   }
 };
+/**
+ * Day of week to full names, converts time to 12 hour format instead of 24 hour
+ */
 export const getFormattedSchedule = (item: Schedule) => {
   const meetingDayToActual = {
     MO: "Monday",

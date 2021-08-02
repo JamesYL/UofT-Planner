@@ -14,14 +14,14 @@ import {
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   SimplifiedTerm,
-  teachingMethod,
+  TeachingMethod,
   SimplifiedMeeting,
 } from "../../../services/courses/timetable_generation/helper";
 import { getFormattedSchedule } from "../../../services/courses/courses";
 
 export interface ShowMeetingsProps {
   meetings: SimplifiedMeeting[];
-  teachingMethod: teachingMethod;
+  teachingMethod: TeachingMethod;
   setTerm: (val: SimplifiedTerm) => unknown;
   term: SimplifiedTerm;
   deleteTerm: () => unknown;
@@ -52,7 +52,7 @@ const ShowMeetings = (props: ShowMeetingsProps) => {
     termCpy.meetingsByActivity = meetingsByActivityCpy;
     setTerm(termCpy);
     for (const key in termCpy.meetingsByActivity) {
-      if (termCpy.meetingsByActivity[key as teachingMethod].length !== 0) {
+      if (termCpy.meetingsByActivity[key as TeachingMethod].length !== 0) {
         return;
       }
     }
