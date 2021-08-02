@@ -45,6 +45,10 @@ const Instructions = (props: InstructionsProps) => {
           Disable certain sections if you don't want to include it when
           generating timetables.
         </DialogContentText>
+        <DialogContentText>
+          Only delete sections you will for sure never want, such as sections
+          you don't have access to.
+        </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button

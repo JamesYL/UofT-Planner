@@ -36,7 +36,7 @@ const Instructions = (props: InstructionsProps) => {
       fullWidth={true}
       maxWidth={"md"}
     >
-      <DialogTitle>Importing Potential Courses</DialogTitle>
+      <DialogTitle>Importing Desired Courses</DialogTitle>
       <DialogContent>
         <DialogContentText>
           We need you to import courses so we can generate timetables for you.

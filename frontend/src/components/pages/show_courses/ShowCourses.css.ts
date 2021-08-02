@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "column",
+    border: `0px solid ${theme.palette.warning.main}`,
+  },
+  cardDisabled: {
+    borderWidth: 2,
   },
   summaryTitle: {
     display: "flex",
@@ -43,6 +47,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: 0,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    border: `0px solid ${theme.palette.warning.main}`,
+  },
+  disabledAccordionSummary: {
+    borderWidth: 2,
   },
   noCoursesTitle: {
     marginTop: theme.spacing(10),
@@ -62,6 +70,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     "&:hover": {
       background: theme.palette.background.paper,
     },
+  },
+  addMoreScroll: {
+    height: 100,
+    width: "100%",
+  },
+  cardAction: {
+    justifyContent: "space-between",
+  },
+  deleteButton: {
+    marginRight: theme.spacing(3),
+    borderColor: theme.palette.error.main,
+    borderWidth: 2,
+  },
+  disableButton: {
+    marginRight: theme.spacing(3),
+    borderColor: theme.palette.warning.main,
+    borderWidth: 2,
   },
 }));
 

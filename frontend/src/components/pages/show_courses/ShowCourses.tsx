@@ -20,44 +20,89 @@ import HelpIcon from "@material-ui/icons/HelpOutline";
 
 const ShowCourses = () => {
   const classes = useStyles();
-  const [courses] = useStorage<SimplifiedCourses>({
+  const [courses, setCourses] = useStorage<SimplifiedCourses>({
     key: "courses",
   });
   const pageVisited = useStorage<boolean>({
     key: "viewCoursesPageVisited",
   });
   const showDialog = React.useState(!pageVisited[0]);
+  const handleDelete = (key: string) => {
+    const cpy = { ...courses };
+    delete cpy[key];
+    setCourses(cpy);
+  };
+  const handleDisable = (key: string) => {
+    setCourses({
+      ...courses,
+      [key]: { ...courses[key], disabled: !courses[key].disabled },
+    });
+  };
 
   return (
     <>
-      {Object.keys(courses).map((key) => (
-        <Accordion
-          classes={{ expanded: classes.expanded }}
-          className={classes.accordion}
-          key={key}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            className={classes.accordionSummary}
+      {Object.keys(courses)
+        .sort()
+        .map((key) => (
+          <Accordion
+            classes={{ expanded: classes.expanded }}
+            className={classes.accordion}
+            key={key}
           >
-            <Typography
-              component="h2"
-              variant="h5"
-              className={classes.summaryTitle}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              className={`${classes.accordionSummary} ${
+                courses[key].disabled && classes.disabledAccordionSummary
+              }`}
             >
-              {key}
-            </Typography>
-          </AccordionSummary>
-          {courses[key as teachingMethod].map((term) => (
-            <AccordionDetails
-              key={key + term.section}
-              className={classes.accordingDetails}
-            >
-              <ShowTerm term={term} />
-            </AccordionDetails>
-          ))}
-        </Accordion>
-      ))}
+              <Typography
+                component="h2"
+                variant="h5"
+                className={classes.summaryTitle}
+              >
+                {key}
+              </Typography>
+              <Button
+                className={classes.disableButton}
+                variant="outlined"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDisable(key);
+                }}
+              >
+                {courses[key].disabled ? "Enable" : "Disable"}
+              </Button>
+              <Button
+                className={classes.deleteButton}
+                variant="outlined"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDelete(key);
+                }}
+              >
+                Delete
+              </Button>
+            </AccordionSummary>
+            {[...courses[key as teachingMethod].terms]
+              .sort((term1, term2) => {
+                if (term1.section < term2.section) return -1;
+                return 1;
+              })
+              .map((term) => (
+                <AccordionDetails
+                  key={key + term.section}
+                  className={classes.accordingDetails}
+                >
+                  <ShowTerm
+                    term={term}
+                    code={key}
+                    courses={courses}
+                    setCourses={setCourses}
+                  />
+                </AccordionDetails>
+              ))}
+          </Accordion>
+        ))}
       {Object.keys(courses).length === 0 && (
         <Typography
           component="h1"
@@ -83,7 +128,7 @@ const ShowCourses = () => {
         <HelpIcon className={classes.helpIcon} />
         Show Instructions
       </Fab>
-      {/* <Button variant="outlined">Save Changes</Button> */}
+      <div className={classes.addMoreScroll} />
     </>
   );
 };

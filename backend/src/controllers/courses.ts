@@ -8,7 +8,7 @@ const getRouter = () => {
   router.get(`/courses/:session/:code`, async (req, res) => {
     const code = req.params.code.trim();
     const session = req.params.session;
-    logger.info("Course info requested");
+    logger.info(`Course info requested with ${code}`);
     if (code.length < 6) {
       res.status(400).json({
         message: "Code needs to be at least 6 length like CSC108 or CSC108H1",
@@ -26,7 +26,7 @@ const getRouter = () => {
             .json({ message: `No courses found with the code ${code}` });
         } else   {
           res.json(courses);
-          logger.info(`Course info request success`);
+          logger.info(`Course info request success with code ${code}`);
         } 
       } catch (err) {
         logger.error(err);
