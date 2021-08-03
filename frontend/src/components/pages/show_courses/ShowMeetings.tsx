@@ -16,10 +16,7 @@ import {
   SimplifiedCourses,
   SimplifiedMeeting,
 } from "../../../services/courses/timetable_generation/helper";
-import {
-  getFormattedSchedule,
-  TeachingMethod,
-} from "../../../services/courses/courses";
+import { TeachingMethod } from "../../../services/courses/courses";
 import {
   deleteMeeting,
   disableEnableMeeting,
@@ -102,15 +99,12 @@ const ShowMeetings = (props: ShowMeetingsProps) => {
                         .join(", ")}
                     </Typography>
                   )}
-                  {item.schedule.map((scheduleItem) => {
-                    const formatted = getFormattedSchedule(scheduleItem);
+                  {item.simpleSchedule.map((scheduleItem) => {
                     return (
                       <Typography
-                        key={`${formatted.meetingDay}${formatted.meetingStartTime}${formatted.meetingEndTime}`}
+                        key={`${scheduleItem.meetingDayStr}-${scheduleItem.startHour}-${scheduleItem.startMin}-${scheduleItem.endHour}-${scheduleItem.endMin}`}
                       >
-                        {`${formatted.meetingDay.substring(0, 3)}, ${
-                          formatted.meetingStartTime
-                        } to ${formatted.meetingEndTime} `}
+                        {`${scheduleItem.meetingDayStr}, ${scheduleItem.startHour}:${scheduleItem.startMin} to ${scheduleItem.endHour}:${scheduleItem.endMin}  `}
                       </Typography>
                     );
                   })}

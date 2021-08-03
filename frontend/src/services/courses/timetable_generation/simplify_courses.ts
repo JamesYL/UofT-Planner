@@ -1,11 +1,44 @@
-import { Course, Meeting, TeachingMethod } from "../courses";
+import { Course, Meeting, Schedule, TeachingMethod } from "../courses";
 import {
   SimplifiedCourses,
   SimplifiedTerm,
   MeetingByActivity,
   SimplifiedMeeting,
+  SimplifiedSchedule,
 } from "./helper";
 import clone from "just-clone";
+const simplifySchedule = (item: Schedule): SimplifiedSchedule => {
+  const meetingDayToActual = {
+    MO: 0,
+    TU: 1,
+    WE: 2,
+    TH: 3,
+    FR: 4,
+  };
+  const meetingDayToStr = {
+    MO: "Mon",
+    TU: "Tue",
+    WE: "Wed",
+    TH: "Thu",
+    FR: "Fri",
+  };
+  const [startHour, startMinute] = item.meetingStartTime.split(":");
+  const [endHour, endMinute] = item.meetingEndTime.split(":");
+  return {
+    meetingDay: meetingDayToActual[item.meetingDay] as 0 | 1 | 2 | 3 | 4,
+    startHour: startHour,
+    startMin: startMinute,
+    endHour: endHour,
+    endMin: endMinute,
+    meetingDayStr: meetingDayToStr[item.meetingDay] as
+      | "Mon"
+      | "Tue"
+      | "Wed"
+      | "Thu"
+      | "Fri",
+  };
+};
+
 const simplifyCourses = (courses: Course[]): SimplifiedCourses => {
   const ans: SimplifiedCourses = {};
   courses.forEach((course) => {
@@ -37,6 +70,7 @@ const simplifyMeetingsByActivity = (
       id: `${course.code}-${course.section}-${meeting.teachingMethod}${meeting.sectionNumber}`,
       courseCode: course.code.substring(0, 6),
       section: course.section,
+      simpleSchedule: meeting.schedule.map((item) => simplifySchedule(item)),
     })
   );
   return ans;
@@ -73,7 +107,7 @@ export const deleteTerm = (
   existing: SimplifiedCourses,
   term: SimplifiedTerm,
   shouldClone = true
-) => {
+): SimplifiedCourses => {
   if (shouldClone) {
     existing = clone(existing);
   }
@@ -89,7 +123,7 @@ export const disableEnableTerm = (
   existing: SimplifiedCourses,
   term: SimplifiedTerm,
   shouldClone = true
-) => {
+): SimplifiedCourses => {
   if (shouldClone) {
     existing = clone(existing);
   }
@@ -107,7 +141,7 @@ export const deleteMeeting = (
   existing: SimplifiedCourses,
   meeting: SimplifiedMeeting,
   shouldClone = true
-) => {
+): SimplifiedCourses => {
   if (shouldClone) {
     existing = clone(existing);
   }

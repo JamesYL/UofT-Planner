@@ -1,5 +1,4 @@
-import { Section } from './../courses';
-import { Meeting, Course } from "../courses";
+import { Meeting, Course, Section } from "./../courses";
 export interface SimplifiedCourses {
   /** Code must be length 6, Something like CSC108, NOT CSC108H1 */
   [courseCode: string]: { disabled: boolean; terms: SimplifiedTerm[] };
@@ -13,17 +12,26 @@ export interface MeetingByActivity {
   TUT: SimplifiedMeeting[];
   PRA: SimplifiedMeeting[];
 }
-export interface SimplifiedMeeting extends Meeting {
+export interface SimplifiedMeeting extends Omit<Meeting, "schedule"> {
   disabled: boolean;
   id: string;
   courseCode: string;
   section: Section;
+  simpleSchedule: SimplifiedSchedule[];
 }
-export interface TimetableContent {
-  term: SimplifiedTerm;
-  meeting: SimplifiedMeeting;
-  id: string;
+export interface SimplifiedSchedule {
+  meetingDay: 0 | 1 | 2 | 3 | 4;
+  meetingDayStr: "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
+  startHour: string;
+  startMin: string;
+  endHour: string;
+  endMin: string;
 }
+// export interface CombinedSimplifiedMeeting
+//   extends Omit<SimplifiedMeeting, "meetings"> {
+//   allSchedules: Schedule[][];
+// }
+export interface TimetableContent extends SimplifiedMeeting {}
 
 export interface FullTimetable {
   first: (TimetableContent | null)[];

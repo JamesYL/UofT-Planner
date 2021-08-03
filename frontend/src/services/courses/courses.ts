@@ -45,7 +45,11 @@ export interface Course {
   exclusion?: string;
   recommendedPreparation?: string;
 }
-
+const getInnerTextWithoutHtml = (txt: string) => {
+  let tmp = document.createElement("DIV");
+  tmp.innerHTML = txt;
+  return tmp.textContent || tmp.innerText || "";
+};
 export const getCourse = async (
   code: string,
   session: string
@@ -69,34 +73,4 @@ export const getCourse = async (
   } catch (err) {
     throw new BadAxiosResponseError(err.response);
   }
-};
-/**
- * Day of week to full names, converts time to 12 hour format instead of 24 hour
- */
-export const getFormattedSchedule = (item: Schedule) => {
-  const meetingDayToActual = {
-    MO: "Monday",
-    TU: "Tuesday",
-    WE: "Wednesday",
-    TH: "Thursday",
-    FR: "Friday",
-  };
-  const [startHour, startMinute] = item.meetingStartTime.split(":");
-  const [endHour, endMinute] = item.meetingEndTime.split(":");
-  const startHourInt = parseInt(startHour);
-  const endHourInt = parseInt(endHour);
-  return {
-    meetingDay: meetingDayToActual[item.meetingDay],
-    meetingStartTime: `${
-      startHourInt <= 12 ? startHourInt : startHourInt - 12
-    }:${startMinute} ${startHourInt < 12 ? "A.M" : "P.M"}`,
-    meetingEndTime: `${
-      endHourInt <= 12 ? endHour : endHourInt - 12
-    }:${endMinute} ${endHourInt < 12 ? "A.M" : "P.M"}`,
-  };
-};
-const getInnerTextWithoutHtml = (txt: string) => {
-  let tmp = document.createElement("DIV");
-  tmp.innerHTML = txt;
-  return tmp.textContent || tmp.innerText || "";
 };
