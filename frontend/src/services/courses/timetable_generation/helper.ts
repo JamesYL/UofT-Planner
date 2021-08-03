@@ -27,10 +27,8 @@ export interface SimplifiedSchedule {
   endHour: string;
   endMin: string;
 }
-// export interface CombinedSimplifiedMeeting
-//   extends Omit<SimplifiedMeeting, "meetings"> {
-//   allSchedules: Schedule[][];
-// }
+/** Meetings that share the same schedules */
+export type CombinedSimplifiedMeeting = SimplifiedMeeting[];
 export interface TimetableContent extends SimplifiedMeeting {}
 
 export interface FullTimetable {
