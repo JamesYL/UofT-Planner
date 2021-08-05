@@ -1,7 +1,7 @@
-import { createEmptyTimetable } from "./timetable";
+import Timetable from "./Timetable";
 import {
   CombinedSimplifiedMeeting,
-  FullTimetable,
+  CombinedSimplifiedMeetingGrouping,
   MeetingByActivity,
   SimplifiedCourses,
   SimplifiedMeeting,
@@ -20,23 +20,23 @@ export const timeComparator = (
     b.meetingDay * 48 +
     parseInt(b.startHour) * 2 +
     ~~(parseInt(b.startMin) / 30);
-  return bTime - aTime;
+  return aTime - bTime;
 };
 
-/**
- * Two meetings that have same delivery method and schedules with same type of activity
- */
+/** Two meetings that have same delivery method and schedules with same type of activity */
 export const sameMeeting = (
   meeting1: SimplifiedMeeting,
   meeting2: SimplifiedMeeting
 ): boolean => {
-  if (meeting1.teachingMethod !== meeting2.teachingMethod) return false;
-  else if (meeting1.deliveryMode !== meeting2.deliveryMode) return false;
-  else if (meeting1.deliveryMode === "ONLASYNC") {
-    if (meeting1.contactHours !== meeting2.contactHours) return false;
-    return true;
-  } else if (meeting1.simpleSchedule !== meeting2.simpleSchedule) {
+  if (
+    meeting1.teachingMethod !== meeting2.teachingMethod ||
+    meeting1.deliveryMode !== meeting2.deliveryMode ||
+    meeting1.contactHours !== meeting2.contactHours ||
+    meeting1.simpleSchedule.length !== meeting2.simpleSchedule.length
+  )
     return false;
+  else if (meeting1.deliveryMode === "ONLASYNC") {
+    return true;
   } else {
     const schedule1 = [...meeting1.simpleSchedule];
     const schedule2 = [...meeting2.simpleSchedule];
@@ -55,6 +55,7 @@ export const sameMeeting = (
     return true;
   }
 };
+/** Collection of meetings that have the same schedule and delivery method and activity */
 export const getSameMeetings = (
   meetings: SimplifiedMeeting[]
 ): CombinedSimplifiedMeeting[] => {
@@ -77,26 +78,108 @@ export const getSameMeetings = (
   }
   return combined;
 };
-
-const getPossibleSelections = (meetings: MeetingByActivity) => {
-  const selections: SimplifiedMeeting[][] = [];
+/** Gets a list of all LEC/PRA/TUT valid groupings */
+const getValidActivityGroupings = (
+  meetings: MeetingByActivity
+): CombinedSimplifiedMeetingGrouping[] => {
+  const selections: CombinedSimplifiedMeeting[][] = [];
   const filtered1 = meetings["LEC"].filter((item) => !item.disabled);
-  if (filtered1.length > 0) selections.push(filtered1);
+  if (filtered1.length > 0) selections.push(getSameMeetings(filtered1));
   const filtered2 = meetings["TUT"].filter((item) => !item.disabled);
-  if (filtered2.length > 0) selections.push(filtered2);
+  if (filtered2.length > 0) selections.push(getSameMeetings(filtered2));
   const filtered3 = meetings["PRA"].filter((item) => !item.disabled);
-  if (filtered3.length > 0) selections.push(filtered3);
-  const sameMeetingSelections = selections.map((item) => getSameMeetings(item));
-
+  if (filtered3.length > 0) selections.push(getSameMeetings(filtered3));
+  const allValidCombinations: CombinedSimplifiedMeetingGrouping[] = [];
+  getMeetingCombinations(selections, allValidCombinations);
+  return allValidCombinations.filter((grouping) => {
+    for (let i = 0; i < grouping.length; i++) {
+      for (let j = i + 1; j < grouping.length; j++) {
+        if (
+          grouping[i][0].disabled ||
+          grouping[j][0].disabled ||
+          isOverlap(grouping[i], grouping[j])
+        )
+          return false;
+      }
+    }
+    return true;
+  });
+};
+/** Check if two meetings have overlapping schedules */
+const isOverlap = (
+  combinedMeetings1: CombinedSimplifiedMeeting,
+  combinedMeetings2: CombinedSimplifiedMeeting
+): boolean => {
+  const schedules1: SimplifiedSchedule[] = combinedMeetings1[0].simpleSchedule;
+  const schedules2: SimplifiedSchedule[] = combinedMeetings2[0].simpleSchedule;
+  for (const s1 of schedules1) {
+    for (const s2 of schedules2) {
+      const start1 = parseInt(s1.startHour) * 60 + parseInt(s1.startMin);
+      const end1 = parseInt(s1.endHour) * 60 + parseInt(s1.endMin);
+      const start2 = parseInt(s2.startHour) * 60 + parseInt(s2.startMin);
+      const end2 = parseInt(s2.endHour) * 60 + parseInt(s2.endMin);
+      if (
+        s1.meetingDay === s2.meetingDay &&
+        ((start1 >= start2 && start1 < end2) || (end1 > start2 && end1 <= end2))
+      )
+        return true;
+    }
+  }
+  return false;
+};
+/** Gets all possible (including invalid) `CombinedSimplifiedMeetingGrouping` from `meetings` and puts it in `result` */
+const getMeetingCombinations = (
+  meetings: CombinedSimplifiedMeeting[][],
+  result: CombinedSimplifiedMeetingGrouping[],
+  soFar: CombinedSimplifiedMeetingGrouping = [],
+  index = 0
+): void => {
+  if (meetings.length === index) {
+    if (soFar.length !== 0) {
+      result.push([...soFar]);
+    }
+  } else {
+    for (const item of meetings[index]) {
+      soFar.push(item);
+      getMeetingCombinations(meetings, result, soFar, index + 1);
+      soFar.pop();
+    }
+  }
+};
+const getTermCombinations = (
+  meetings: MeetingByActivity[][],
+  result: Timetable[],
+  soFar: Timetable,
+  index: number = 0
+): void => {
+  if (meetings.length === index) {
+    if (!soFar.isEmpty()) {
+      result.push(soFar.copy());
+    }
+  } else {
+    for (const item of meetings[index]) {
+      soFar.add(item);
+      getMeetingCombinations(meetings, result, soFar, index + 1);
+      soFar.remove();
+      // TODO
+    }
+  }
 };
 
-const getTimetables = (courses: SimplifiedCourses): FullTimetable => {
-  const terms = Object.keys(courses)
+const getTimetables = (courses: SimplifiedCourses): Timetable[] => {
+  const meetingsOfTerms = Object.keys(courses)
     .map((key) => courses[key])
     .filter((item) => !item.disabled)
-    .map((item) => item.terms);
-  if (terms.length === 0) return createEmptyTimetable();
-
-  return createEmptyTimetable();
+    .map((item) =>
+      item.terms.filter((t) => !t.disabled).map((t) => t.meetingsByActivity)
+    );
+  // terms is something like
+  // [
+  // [meetings for term F for course A, meetings for term S for course A],
+  // [meetings for term Y for course B]
+  // ]
+  const res: Timetable[] = [];
+  getTermCombinations(meetingsOfTerms, res, new Timetable());
+  return res;
 };
 export default getTimetables;

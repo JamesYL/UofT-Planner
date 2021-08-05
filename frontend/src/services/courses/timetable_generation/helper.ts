@@ -1,4 +1,4 @@
-import { Meeting, Course, Section } from "./../courses";
+import { Meeting, Course, Section, DeliveryMode } from "./../courses";
 export interface SimplifiedCourses {
   /** Code must be length 6, Something like CSC108, NOT CSC108H1 */
   [courseCode: string]: { disabled: boolean; terms: SimplifiedTerm[] };
@@ -29,12 +29,13 @@ export interface SimplifiedSchedule {
 }
 /** Meetings that share the same schedules */
 export type CombinedSimplifiedMeeting = SimplifiedMeeting[];
-export interface TimetableContent extends SimplifiedMeeting {}
-
-export interface FullTimetable {
-  first: (TimetableContent | null)[];
-  second: (TimetableContent | null)[];
-  async: {
-    [id: string]: TimetableContent;
-  };
+/** List combined simplified meetings with each item representing a different activity (LEC/PRA/TUT) */
+export type CombinedSimplifiedMeetingGrouping = CombinedSimplifiedMeeting[];
+export interface TimetableContent {
+  allMeetings: CombinedSimplifiedMeeting;
+  simpleSchedule: SimplifiedSchedule[];
+  courseCode: string;
+  section: Section;
+  deliveryMode: DeliveryMode;
+  id: string;
 }

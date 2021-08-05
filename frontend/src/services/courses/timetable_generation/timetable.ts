@@ -1,99 +1,109 @@
-import { FullTimetable, SimplifiedSchedule, TimetableContent } from "./helper";
+import { SimplifiedSchedule, TimetableContent } from "./helper";
 
-export const createEmptyTimetable = (): FullTimetable => {
-  // 24 hours per day * 2 (two half hours) * 5 (five days per week)
-  // Courses go for 30 minute intervals
-  return {
-    first: Array(24 * 2 * 5).fill(null),
-    second: Array(24 * 2 * 5).fill(null),
-    async: {},
+class Timetable {
+  public first: (TimetableContent | null)[];
+  public second: (TimetableContent | null)[];
+  public async: {
+    [id: string]: TimetableContent;
   };
-};
-export const checkOverlap = (
-  timetable: FullTimetable,
-  content: TimetableContent
-): boolean => {
-  for (const time of content.simpleSchedule) {
-    const [start, end] = timeToIndex(time);
-    for (let i = start; i < end; i++) {
-      if (
-        ("FY".includes(content.section) && timetable.first[i] !== null) ||
-        ("SY".includes(content.section) && timetable.second[i] !== null)
-      )
-        return true;
-    }
+  constructor() {
+    // 24 hours per day * 2 (two half hours) * 5 (five days per week)
+    // Courses go for 30 minute intervals
+    this.first = Array(24 * 2 * 5).fill(null);
+    this.second = Array(24 * 2 * 5).fill(null);
+    this.async = {};
   }
-  return false;
-};
-export const addToTimetable = (
-  timetable: FullTimetable,
-  content: TimetableContent
-): void => {
-  if (content.deliveryMode === "ONLASYNC") {
-    if (content.id in timetable.async)
-      throw new TimetableError(
-        content,
-        timetable,
-        `Trying to add to timetable when slot is used`
-      );
-    else {
-      timetable.async[content.id] = content;
-    }
-  } else {
+  checkOverlap(content: TimetableContent): boolean {
     for (const time of content.simpleSchedule) {
-      const [startI, endI] = timeToIndex(time);
-      for (let i = startI; i < endI; i++) {
+      const [start, end] = timeToIndex(time);
+      for (let i = start; i < end; i++) {
         if (
-          ("FY".includes(content.section) && timetable.first[i] !== null) ||
-          ("SY".includes(content.section) && timetable.second[i] !== null)
-        ) {
-          throw new TimetableError(
-            content,
-            timetable,
-            `Trying to add to timetable when slot is used`
-          );
+          ("FY".includes(content.section) && this.first[i] !== null) ||
+          ("SY".includes(content.section) && this.second[i] !== null)
+        )
+          return true;
+      }
+    }
+    return false;
+  }
+  add(content: TimetableContent): void {
+    if (content.deliveryMode === "ONLASYNC") {
+      if (content.id in this.async)
+        throw new TimetableError(
+          content,
+          this,
+          `Trying to add to timetable when slot is used`
+        );
+      else {
+        this.async[content.id] = content;
+      }
+    } else {
+      for (const time of content.simpleSchedule) {
+        const [startI, endI] = timeToIndex(time);
+        for (let i = startI; i < endI; i++) {
+          if (
+            ("FY".includes(content.section) && this.first[i] !== null) ||
+            ("SY".includes(content.section) && this.second[i] !== null)
+          ) {
+            throw new TimetableError(
+              content,
+              this,
+              `Trying to add to timetable when slot is used`
+            );
+          }
+          if ("FY".includes(content.section)) this.first[i] = content;
+          if ("SY".includes(content.section)) this.second[i] = content;
         }
-        if ("FY".includes(content.section)) timetable.first[i] = content;
-        if ("SY".includes(content.section)) timetable.second[i] = content;
       }
     }
   }
-};
-export const removeFromTimetable = (
-  timetable: FullTimetable,
-  content: TimetableContent
-): void => {
-  if (content === null) return;
-  else if (content.deliveryMode === "ONLASYNC") {
-    if (!(content.id in timetable.async))
-      throw new TimetableError(
-        content,
-        timetable,
-        `Trying to remove from timetable when slot is empty`
-      );
-    else {
-      delete timetable.async[content.id];
-    }
-  } else {
-    for (const time of content.simpleSchedule) {
-      const [startI, endI] = timeToIndex(time);
-      for (let i = startI; i < endI; i++) {
-        if (
-          ("FY".includes(content.section) && timetable.first[i] === null) ||
-          ("SY".includes(content.section) && timetable.second[i] === null)
-        ) {
-          throw new TimetableError(
-            content,
-            timetable,
-            `Trying to remove from timetable when slot is empty`
-          );
+  remove(content: TimetableContent): void {
+    if (content === null) return;
+    else if (content.deliveryMode === "ONLASYNC") {
+      if (!(content.id in this.async))
+        throw new TimetableError(
+          content,
+          this,
+          `Trying to remove from timetable when slot is empty`
+        );
+      else {
+        delete this.async[content.id];
+      }
+    } else {
+      for (const time of content.simpleSchedule) {
+        const [startI, endI] = timeToIndex(time);
+        for (let i = startI; i < endI; i++) {
+          if (
+            ("FY".includes(content.section) && this.first[i] === null) ||
+            ("SY".includes(content.section) && this.second[i] === null)
+          ) {
+            throw new TimetableError(
+              content,
+              this,
+              `Trying to remove from timetable when slot is empty`
+            );
+          }
+          if ("FY".includes(content.section)) this.first[i] = null;
+          if ("SY".includes(content.section)) this.second[i] = null;
         }
-        if ("FY".includes(content.section)) timetable.first[i] = null;
-        if ("SY".includes(content.section)) timetable.second[i] = null;
       }
     }
   }
-};
+  copy(): Timetable {
+    const cpy = new Timetable();
+    cpy.first = [...this.first];
+    cpy.second = [...this.second];
+    cpy.async = { ...this.async };
+    return cpy;
+  }
+  isEmpty(): boolean {
+    return (
+      Object.keys(this.async).length === 0 &&
+      this.first.every((item) => item === null) &&
+      this.second.every((item) => item === null)
+    );
+  }
+}
 
 const timeToIndex = (t: SimplifiedSchedule): [number, number] => {
   const dayIndex = t.meetingDay * 48;
@@ -110,7 +120,7 @@ export class TimetableError extends Error {
   private timetable;
   constructor(
     content: TimetableContent,
-    timetable: FullTimetable,
+    timetable: Timetable,
     message: string
   ) {
     super(message);
@@ -124,3 +134,4 @@ export class TimetableError extends Error {
     return this.timetable;
   }
 }
+export default Timetable;
