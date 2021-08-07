@@ -6,7 +6,9 @@ import {
   SimplifiedCourses,
   SimplifiedMeeting,
   SimplifiedSchedule,
+  TimetableContent,
 } from "./helper";
+import { v4 as uuidv4 } from "uuid";
 
 export const timeComparator = (
   a: SimplifiedSchedule,
@@ -146,6 +148,7 @@ const getMeetingCombinations = (
     }
   }
 };
+/** Creates all possible valid timetables from `meetings` puts it in `result` */
 const getTermCombinations = (
   meetings: MeetingByActivity[][],
   result: Timetable[],
@@ -157,15 +160,32 @@ const getTermCombinations = (
       result.push(soFar.copy());
     }
   } else {
-    for (const item of meetings[index]) {
-      soFar.add(item);
-      getMeetingCombinations(meetings, result, soFar, index + 1);
-      soFar.remove();
-      // TODO
-    }
+    const groupings: CombinedSimplifiedMeetingGrouping[] = [];
+    meetings[index].forEach((item) =>
+      groupings.push(...getValidActivityGroupings(item))
+    );
+    groupings.forEach((group) => {
+      const contents: TimetableContent[] = group.map((item) => ({
+        allMeetings: item,
+        simpleSchedule: item[0].simpleSchedule,
+        courseCode: item[0].courseCode,
+        section: item[0].section,
+        deliveryMode: item[0].deliveryMode,
+        id: uuidv4(),
+      }));
+      if (contents.every((content) => !soFar.checkOverlap(content))) {
+        contents.forEach(soFar.add);
+        getTermCombinations(meetings, result, soFar, index + 1);
+        contents.forEach(soFar.remove);
+      }
+    });
   }
 };
 
+/**
+ * @param courses all courses
+ * @returns All possible valid timetables
+ */
 const getTimetables = (courses: SimplifiedCourses): Timetable[] => {
   const meetingsOfTerms = Object.keys(courses)
     .map((key) => courses[key])
