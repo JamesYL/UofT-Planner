@@ -18,7 +18,7 @@ import { TeachingMethod } from "../../../services/courses/courses";
 import {
   deleteTerm,
   disableEnableTerm,
-} from "../../../services/courses/timetable_generation/simplify_courses";
+} from "../../../services/courses/timetable_generation/simplifyCourses";
 
 export interface ShowTermProps {
   term: SimplifiedTerm;

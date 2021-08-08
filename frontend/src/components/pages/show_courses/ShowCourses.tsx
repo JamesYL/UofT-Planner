@@ -18,7 +18,7 @@ import { TeachingMethod } from "../../../services/courses/courses";
 import {
   deleteCourse,
   disableEnableCourse,
-} from "../../../services/courses/timetable_generation/simplify_courses";
+} from "../../../services/courses/timetable_generation/simplifyCourses";
 
 const ShowCourses = () => {
   const classes = useStyles();

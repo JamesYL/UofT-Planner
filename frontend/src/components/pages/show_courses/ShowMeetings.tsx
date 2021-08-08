@@ -20,7 +20,7 @@ import { TeachingMethod } from "../../../services/courses/courses";
 import {
   deleteMeeting,
   disableEnableMeeting,
-} from "../../../services/courses/timetable_generation/simplify_courses";
+} from "../../../services/courses/timetable_generation/simplifyCourses";
 
 export interface ShowMeetingsProps {
   meetings: SimplifiedMeeting[];

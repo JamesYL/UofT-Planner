@@ -1,0 +1,344 @@
+[
+  {
+    "courseTitle": "Introduction to Computer Programming",
+    "code": "CSC108H1",
+    "section": "F",
+    "session": "20219",
+    "meetings": [
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "09:00",
+            "meetingEndTime": "10:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "09:00",
+            "meetingEndTime": "11:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "M",
+            "lastName": "Craig"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9901",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "09:00",
+            "meetingEndTime": "10:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "09:00",
+            "meetingEndTime": "11:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "J",
+            "lastName": "Smith"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9902",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "13:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "14:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "J",
+            "lastName": "Smith"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9903",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "13:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "14:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "S",
+            "lastName": "Sharmin"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9904",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "13:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "14:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "D",
+            "lastName": "Sabie"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9905",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "16:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "17:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "M",
+            "lastName": "Craig"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9906",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "16:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "17:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "S",
+            "lastName": "Sharmin"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9907",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "16:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "17:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9908",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "18:00",
+            "meetingEndTime": "19:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "18:00",
+            "meetingEndTime": "20:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "T",
+            "lastName": "Fairgrieve"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9909",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "18:00",
+            "meetingEndTime": "19:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "18:00",
+            "meetingEndTime": "20:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "LEC",
+        "sectionNumber": "9910",
+        "deliveryMode": "ONLSYNC"
+      }
+    ],
+    "breadthCategories": "The Physical and Mathematical Universes (5)",
+    "distributionCategories": "Science",
+    "deliveryInstructions": "Each week will include 1-2 hours of online asynchronous videos and exercises, followed by 3 hours of synchronous online active learning class time. Students who miss an active learning session will be able to watch a recording of a similar session posted by the following day. All assessments will be fully online. Students must write an online test during their scheduled lecture time on at least two dates during the term.  Students will need to be able to use videoconferencing tools, to watch videos hosted on MS Stream, and to install software on their own computer. Computers with limited capabilities, such as Chromebooks, or tablets like the iPad, are likely NOT sufficient.",
+    "courseDescription": "Programming in a language such as Python. Elementary data types, lists, maps. Program structure: control flow, functions, classes, objects, methods. Algorithms and problem solving. Searching, sorting, and complexity. Unit testing. No prior programming experience required.NOTE: You may not take this course concurrently with CSC120H1/CSC148H1, but you may take CSC148H1 after CSC108H1.",
+    "exclusion": "CSC110Y1, CSC120H1, CSC121H1, CSC148H1",
+    "webTimetableInstructions": "If you’ve been accepted to the Computer Science (CMP1) admission stream and have guaranteed admission to a computer science program, you must enrol in CSC110Y and CSC111H. You may not enrol in CSC108H, CSC148H, or CSC165H. If you are unable to enrol in the appropriate set of courses, please contact cs.undergrad@utoronto.ca."
+  },
+  {
+    "courseTitle": "Introduction to Computer Programming",
+    "code": "CSC108H1",
+    "section": "S",
+    "session": "20219",
+    "meetings": [
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "10:00",
+            "meetingEndTime": "12:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "11:00",
+            "meetingEndTime": "12:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "P",
+            "lastName": "Gries"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "0101",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "14:00",
+            "meetingEndTime": "16:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "16:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "LEC",
+        "sectionNumber": "0201",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "16:00",
+            "meetingEndTime": "18:00"
+          },
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "16:00",
+            "meetingEndTime": "17:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "LEC",
+        "sectionNumber": "0301",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "18:00",
+            "meetingEndTime": "21:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "T",
+            "lastName": "Fairgrieve"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "5101",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "WE",
+            "meetingStartTime": "18:00",
+            "meetingEndTime": "21:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "T",
+            "lastName": "Fairgrieve"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "5102",
+        "deliveryMode": "CLASS"
+      }
+    ],
+    "breadthCategories": "The Physical and Mathematical Universes (5)",
+    "distributionCategories": "Science",
+    "courseDescription": "Programming in a language such as Python. Elementary data types, lists, maps. Program structure: control flow, functions, classes, objects, methods. Algorithms and problem solving. Searching, sorting, and complexity. Unit testing. No prior programming experience required.NOTE: You may not take this course concurrently with CSC120H1/CSC148H1, but you may take CSC148H1 after CSC108H1.",
+    "exclusion": "CSC110Y1, CSC120H1, CSC121H1, CSC148H1",
+    "webTimetableInstructions": "If you’ve been accepted to the Computer Science (CMP1) admission stream and have guaranteed admission to a computer science program, you must enrol in CSC110Y and CSC111H. You may not enrol in CSC108H, CSC148H, or CSC165H. If you are unable to enrol in the appropriate set of courses, please contact cs.undergrad@utoronto.ca."
+  }
+]

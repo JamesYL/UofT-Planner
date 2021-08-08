@@ -12,7 +12,7 @@ import Instructions from "./Instructions";
 import HelpIcon from "@material-ui/icons/HelpOutline";
 import useStorage from "../../../storage/useStorage";
 import { SimplifiedCourses } from "../../../services/courses/timetable_generation/helper";
-import addToSimplifiedCourses from "../../../services/courses/timetable_generation/simplify_courses";
+import addToSimplifiedCourses from "../../../services/courses/timetable_generation/simplifyCourses";
 const ImportEvents = () => {
   const classes = useStyles();
   const pageVisited = useStorage<boolean>({

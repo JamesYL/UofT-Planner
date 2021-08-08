@@ -1,0 +1,265 @@
+[
+  {
+    "courseTitle": "Introduction to History and Philosophy of Science and Technology",
+    "code": "HPS100H1",
+    "section": "F",
+    "session": "20219",
+    "meetings": [
+      {
+        "schedule": [],
+        "instructors": [
+          {
+            "firstName": "K",
+            "lastName": "Vold"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "0101",
+        "deliveryMode": "ONLASYNC",
+        "contactHours": "2.0"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "11:00",
+            "meetingEndTime": "12:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0101",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "13:00",
+            "meetingEndTime": "14:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0201",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "TH",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "13:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0301",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "TH",
+            "meetingStartTime": "13:00",
+            "meetingEndTime": "14:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0401",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "TH",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "16:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0501",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "FR",
+            "meetingStartTime": "11:00",
+            "meetingEndTime": "12:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0601",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "FR",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "13:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0701",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "FR",
+            "meetingStartTime": "14:00",
+            "meetingEndTime": "15:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0801",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "TU",
+            "meetingStartTime": "14:00",
+            "meetingEndTime": "15:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0901",
+        "deliveryMode": "ONLSYNC"
+      }
+    ],
+    "breadthCategories": "Thought, Belief and Behaviour (2)",
+    "distributionCategories": "Humanities, Science",
+    "deliveryInstructions": "<p>Recordings of lectures will be available for students to view asynchronously. Tutorials and some lecture sections will be available only as online synchronous and in person at their scheduled times. Students will be expected to watch asynchronous lecture videos prior to class meetings. It is recommended that students have a computer with a microphone and camera in order to participate in online activities.&nbsp;",
+    "courseDescription": "An investigation of some pivotal periods in the history of science with an emphasis on the influences of philosophy on the scientists of the period, and the philosophical and social implications of the scientific knowledge, theory and methodology that emerged."
+  },
+  {
+    "courseTitle": "Introduction to History and Philosophy of Science and Technology",
+    "code": "HPS100H1",
+    "section": "S",
+    "session": "20219",
+    "meetings": [
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "09:00",
+            "meetingEndTime": "11:00"
+          }
+        ],
+        "instructors": [
+          {
+            "firstName": "C",
+            "lastName": "Lewis"
+          }
+        ],
+        "teachingMethod": "LEC",
+        "sectionNumber": "0101",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "13:00",
+            "meetingEndTime": "14:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0101",
+        "deliveryMode": "ONLSYNC"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "MO",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "16:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0201",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "TH",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "13:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0301",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "TH",
+            "meetingStartTime": "13:00",
+            "meetingEndTime": "14:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0401",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "TH",
+            "meetingStartTime": "15:00",
+            "meetingEndTime": "16:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0501",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "FR",
+            "meetingStartTime": "11:00",
+            "meetingEndTime": "12:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0601",
+        "deliveryMode": "CLASS"
+      },
+      {
+        "schedule": [
+          {
+            "meetingDay": "FR",
+            "meetingStartTime": "12:00",
+            "meetingEndTime": "13:00"
+          }
+        ],
+        "instructors": [],
+        "teachingMethod": "TUT",
+        "sectionNumber": "0701",
+        "deliveryMode": "CLASS"
+      }
+    ],
+    "breadthCategories": "Thought, Belief and Behaviour (2)",
+    "distributionCategories": "Humanities, Science",
+    "deliveryInstructions": "<p>Lecture recordings will be made available prior to class meetings. Students will be expected to watch those recordings, and then attend synchronous live discussions. It is recommended that students have a computer with a microphone in order to participate in online activities.&nbsp;</p>",
+    "courseDescription": "<p>An investigation of some pivotal periods in the history of science with an emphasis on the influences of philosophy on the scientists of the period, and the philosophical and social implications of the scientific knowledge, theory and methodology that emerged.</p>"
+  }
+]

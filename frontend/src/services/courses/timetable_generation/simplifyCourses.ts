@@ -84,7 +84,7 @@ export const deleteCourse = (
   existing: SimplifiedCourses,
   code: string,
   shouldClone = true
-) => {
+): SimplifiedCourses => {
   if (shouldClone) {
     existing = clone(existing);
   }
@@ -95,7 +95,7 @@ export const disableEnableCourse = (
   existing: SimplifiedCourses,
   code: string,
   shouldClone = true
-) => {
+): SimplifiedCourses => {
   if (shouldClone) {
     existing = clone(existing);
   }
