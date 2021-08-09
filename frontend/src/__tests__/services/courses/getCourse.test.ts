@@ -1,5 +1,5 @@
 import config from "../../../config";
-import { getCourse } from "../../../services/courses/courses";
+import { getCourse } from "../../../services/courses/getCourse";
 
 /**
  * This ensures getCourse endpoint works

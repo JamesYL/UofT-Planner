@@ -14,7 +14,7 @@ import {
 } from "../../../services/courses/timetable_generation/helper";
 import ShowMeetings from "./ShowMeetings";
 import clsx from "clsx";
-import { TeachingMethod } from "../../../services/courses/courses";
+import { TeachingMethod } from "../../../services/courses/getCourse";
 import {
   deleteTerm,
   disableEnableTerm,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import useStyles from "./DisplayCourses.css";
-import { Course } from "../../../services/courses/courses";
+import { Course } from "../../../services/courses/getCourse";
 export interface DisplayCoursesProps {
   courses: Course[];
 }

@@ -16,7 +16,7 @@ import {
   SimplifiedCourses,
   SimplifiedMeeting,
 } from "../../../services/courses/timetable_generation/helper";
-import { TeachingMethod } from "../../../services/courses/courses";
+import { TeachingMethod } from "../../../services/courses/getCourse";
 import {
   deleteMeeting,
   disableEnableMeeting,

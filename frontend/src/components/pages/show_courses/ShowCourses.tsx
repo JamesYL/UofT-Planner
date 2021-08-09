@@ -14,7 +14,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ShowTerm from "./ShowTerm";
 import Instructions from "./Instructions";
 import HelpIcon from "@material-ui/icons/HelpOutline";
-import { TeachingMethod } from "../../../services/courses/courses";
+import { TeachingMethod } from "../../../services/courses/getCourse";
 import {
   deleteCourse,
   disableEnableCourse,

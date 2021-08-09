@@ -1,4 +1,4 @@
-import { Course, Meeting, Schedule, TeachingMethod } from "../courses";
+import { Course, Meeting, Schedule, TeachingMethod } from "../getCourse";
 import {
   SimplifiedCourses,
   SimplifiedTerm,
