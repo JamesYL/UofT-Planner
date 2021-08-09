@@ -173,10 +173,11 @@ const getTermCombinations = (
         deliveryMode: item[0].deliveryMode,
         id: uuidv4(),
       }));
+
       if (contents.every((content) => !soFar.checkOverlap(content))) {
-        contents.forEach(soFar.add);
+        contents.forEach((content) => soFar.add(content));
         getTermCombinations(meetings, result, soFar, index + 1);
-        contents.forEach(soFar.remove);
+        contents.forEach((content) => soFar.remove(content));
       }
     });
   }

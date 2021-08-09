@@ -20,8 +20,9 @@ class Timetable {
         if (
           ("FY".includes(content.section) && this.first[i] !== null) ||
           ("SY".includes(content.section) && this.second[i] !== null)
-        )
+        ) {
           return true;
+        }
       }
     }
     return false;
@@ -108,10 +109,7 @@ class Timetable {
 const timeToIndex = (t: SimplifiedSchedule): [number, number] => {
   const dayIndex = t.meetingDay * 48;
   const startI =
-    t.meetingDay * 48 -
-    48 +
-    parseInt(t.startHour) * 2 +
-    ~~(parseInt(t.startMin) / 30);
+    dayIndex + parseInt(t.startHour) * 2 + ~~(parseInt(t.startMin) / 30);
   const endI = dayIndex + parseInt(t.endHour) * 2 + ~~(parseInt(t.endMin) / 30);
   return [startI, endI];
 };
