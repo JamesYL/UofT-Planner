@@ -9,8 +9,8 @@ import simplifyCourses, {
   disableEnableMeeting,
 } from "../../../services/courses/timetable_generation/simplifyCourses";
 
-import courses1 from "./data/CSC108.json";
-import courses2 from "./data/MAT237.json";
+import csc108 from "./data/CSC108.json";
+import mat237 from "./data/MAT237.json";
 
 describe("Modifying simplified courses", () => {
   it("Create simplified courses", () => {
@@ -97,7 +97,7 @@ describe("Modifying simplified courses", () => {
 });
 
 const getSimplifiedCourses = (): SimplifiedCourses => {
-  let res = simplifyCourses(courses1 as Course[]);
-  res = simplifyCourses(courses2 as Course[], res);
+  let res = simplifyCourses(csc108 as Course[]);
+  res = simplifyCourses(mat237 as Course[], res);
   return res;
 };

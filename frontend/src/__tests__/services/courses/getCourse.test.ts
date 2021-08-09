@@ -21,4 +21,13 @@ describe("Getting courses from backend", () => {
     const data = await getCourse("HPS100", config.session);
     expect(data).toHaveLength(2);
   });
+  it("Course code doesn't exist", async () => {
+    await expect(getCourse("LLLLLL", config.session)).rejects.toThrow();
+  });
+  it("Course code too long", async () => {
+    await expect(getCourse("HPS100000", config.session)).rejects.toThrow();
+  });
+  it("Course code too short", async () => {
+    await expect(getCourse("HPS", config.session)).rejects.toThrow();
+  });
 });
