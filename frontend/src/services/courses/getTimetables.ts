@@ -1,4 +1,4 @@
-import Timetable from "./Timetable";
+import Timetable from "./timetable";
 import {
   CombinedSimplifiedMeeting,
   CombinedSimplifiedMeetingGrouping,

@@ -1,5 +1,5 @@
-import { SimplifiedCourses } from "./../../../services/courses/timetable_generation/helper";
-import { Course } from "../../../services/courses/getCourse";
+import { SimplifiedCourses } from "../helper";
+import { Course } from "../getCourse";
 import simplifyCourses, {
   deleteCourse,
   disableEnableCourse,
@@ -7,7 +7,7 @@ import simplifyCourses, {
   disableEnableTerm,
   deleteMeeting,
   disableEnableMeeting,
-} from "../../../services/courses/timetable_generation/simplifyCourses";
+} from "../simplifyCourses";
 
 import csc108 from "./data/CSC108.json";
 import mat237 from "./data/MAT237.json";

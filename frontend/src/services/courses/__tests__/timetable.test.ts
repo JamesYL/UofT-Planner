@@ -1,10 +1,10 @@
 import {
   SimplifiedSchedule,
   TimetableContent,
-} from "../../../services/courses/timetable_generation/helper";
-import Timetable from "../../../services/courses/timetable_generation/Timetable";
+} from "../helper";
+import Timetable from "../timetable";
 import { v4 as uuidv4 } from "uuid";
-import { DeliveryMode, Section } from "../../../services/courses/getCourse";
+import { DeliveryMode, Section } from "../getCourse";
 
 describe("Timetable class methods", () => {
   it("Initialize timetable", () => {

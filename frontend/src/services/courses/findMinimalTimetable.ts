@@ -1,4 +1,4 @@
-import Timetable from "./Timetable";
+import Timetable from "./timetable";
 
 /**
  * Sorts timetable in place by least wasted time (commute time + time between classes)
