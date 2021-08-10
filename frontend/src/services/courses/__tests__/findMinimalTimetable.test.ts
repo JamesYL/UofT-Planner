@@ -59,3 +59,4 @@ describe("Find minimal timetable", () => {
     expect(sorted).toStrictEqual([t1, t2]);
   });
 });
+
