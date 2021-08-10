@@ -15,7 +15,7 @@ export const sortTimetableByMinimalTimeWasted = (
       getTotalTimeWasted(commute, a, "F") + getTotalTimeWasted(commute, a, "S");
     const totalB =
       getTotalTimeWasted(commute, b, "F") + getTotalTimeWasted(commute, b, "S");
-    return totalA <= totalB ? -1 : 1;
+    return totalA < totalB ? -1 : totalA > totalB ? 1 : 0;
   });
 
 /** Time wasted in half hours */
@@ -38,18 +38,18 @@ const getTotalTimeWasted = (
       continue;
     } else {
       // Only count time wasted from first in class item to last in class item
-      let firstInClassIndex: number = 0;
-      let lastInClassIndex: number = 0;
+      let firstInClassIndex: number = -1;
+      let lastInClassIndex: number = -1;
       daySchedule.forEach((item, index) => {
         if (item !== null && item.deliveryMode === "CLASS") {
-          if (firstInClassIndex === null) firstInClassIndex = index;
+          if (firstInClassIndex === -1) firstInClassIndex = index;
           lastInClassIndex = index;
         }
       });
       const totEmptyClasses = daySchedule
-        .slice(firstInClassIndex, lastInClassIndex + 1)
+        .slice(firstInClassIndex + 1, lastInClassIndex)
         .filter((item) => item === null).length;
-      total += (totEmptyClasses * commute) / 30;
+      total += totEmptyClasses + commute / 30;
     }
   }
   return total;
