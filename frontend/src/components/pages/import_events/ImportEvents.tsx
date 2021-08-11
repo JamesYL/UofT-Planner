@@ -11,8 +11,8 @@ import { getTheme } from "../timetable/TimetablePage.css";
 import Instructions from "./Instructions";
 import HelpIcon from "@material-ui/icons/HelpOutline";
 import useStorage from "../../../storage/useStorage";
-import { SimplifiedCourses } from "../../../services/courses/timetable_generation/helper";
-import addToSimplifiedCourses from "../../../services/courses/timetable_generation/simplifyCourses";
+import { SimplifiedCourses } from "../../../services/courses/helper";
+import addToSimplifiedCourses from "../../../services/courses/simplifyCourses";
 const ImportEvents = () => {
   const classes = useStyles();
   const pageVisited = useStorage<boolean>({

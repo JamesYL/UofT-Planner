@@ -1,4 +1,4 @@
-import { SimplifiedCourses } from "./../services/courses/timetable_generation/helper";
+import { SimplifiedCourses } from "./../services/courses/helper";
 const defaultStorage: StorageItems = {
   lastWebsiteVersion: 0,
   importCoursesPageVisited: false,

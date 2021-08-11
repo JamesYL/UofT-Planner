@@ -1,5 +1,5 @@
 import React from "react";
-import { SimplifiedCourses } from "../../../services/courses/timetable_generation/helper";
+import { SimplifiedCourses } from "../../../services/courses/helper";
 import useStorage from "../../../storage/useStorage";
 import useStyles from "./ShowCourses.css";
 import {
@@ -18,7 +18,7 @@ import { TeachingMethod } from "../../../services/courses/getCourse";
 import {
   deleteCourse,
   disableEnableCourse,
-} from "../../../services/courses/timetable_generation/simplifyCourses";
+} from "../../../services/courses/simplifyCourses";
 
 const ShowCourses = () => {
   const classes = useStyles();

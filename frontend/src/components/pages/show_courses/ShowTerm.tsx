@@ -11,14 +11,14 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   SimplifiedCourses,
   SimplifiedTerm,
-} from "../../../services/courses/timetable_generation/helper";
+} from "../../../services/courses/helper";
 import ShowMeetings from "./ShowMeetings";
 import clsx from "clsx";
 import { TeachingMethod } from "../../../services/courses/getCourse";
 import {
   deleteTerm,
   disableEnableTerm,
-} from "../../../services/courses/timetable_generation/simplifyCourses";
+} from "../../../services/courses/simplifyCourses";
 
 export interface ShowTermProps {
   term: SimplifiedTerm;

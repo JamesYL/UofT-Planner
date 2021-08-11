@@ -15,12 +15,12 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   SimplifiedCourses,
   SimplifiedMeeting,
-} from "../../../services/courses/timetable_generation/helper";
+} from "../../../services/courses/helper";
 import { TeachingMethod } from "../../../services/courses/getCourse";
 import {
   deleteMeeting,
   disableEnableMeeting,
-} from "../../../services/courses/timetable_generation/simplifyCourses";
+} from "../../../services/courses/simplifyCourses";
 
 export interface ShowMeetingsProps {
   meetings: SimplifiedMeeting[];
